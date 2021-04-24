@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -16,10 +17,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "\"user\"")
-    private String user;
+    private String firstName;
+    private String lastName;
     private String password;
     private String email;
+    private Date dateOfBirth;
     @Column(columnDefinition = "boolean default false")
     private boolean activated;
 

@@ -28,21 +28,21 @@ public class UserController implements IController{
     Argon2 argon2 = Argon2Factory.create();
 
     @PostMapping("/register")
-    public UserDTO register(@RequestBody User user) throws UserException {
+    public Response register(@RequestBody User user) throws UserException {
         UserUtils.verifyReg(user, usrRep);
         user.setPassword(argon2.hash(10,65536, 1, user.getPassword()));
         usrRep.save(user);
 
-        return UserDTO.toDTO(user);
+        return new Response(HttpStatus.OK.value(), UserDTO.toDTO(user));
     }
 
     @PostMapping("/login")
-    public UserDTO login(@RequestBody User user, HttpSession session) throws UserAuthException {
-        User dbUser = usrRep.getByUser(user.getUser());
-        if(null != dbUser && argon2.verify(user.getPassword(), dbUser.getPassword().getBytes(StandardCharsets.UTF_8))) {
+    public Response login(@RequestBody User user, HttpSession session) throws UserAuthException {
+        User dbUser = usrRep.getByEmail(user.getEmail());
+        if(null != dbUser && argon2.verify(dbUser.getPassword(), user.getPassword().getBytes(StandardCharsets.UTF_8))) {
             UserDTO userDTO = UserDTO.toDTO(dbUser);
             session.setAttribute("user", userDTO);
-            return UserDTO.toDTO(user);
+            return new Response(HttpStatus.OK.value(), UserDTO.toDTO(user));
         }
         else{
             throw new UserAuthException(Properties.getString("WRONG_CREDS"));

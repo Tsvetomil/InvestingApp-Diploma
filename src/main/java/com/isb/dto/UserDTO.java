@@ -8,7 +8,8 @@ import lombok.Setter;
 @Setter
 public class UserDTO {
     private long id;
-    private String user;
+    private String firstName;
+    private String lastName;
     private String email;
 
     UserDTO(){
@@ -17,7 +18,8 @@ public class UserDTO {
     public static UserDTO toDTO(User user){
         UserDTO userCopy = new UserDTO();
         userCopy.setId(user.getId());
-        userCopy.setUser(user.getUser());
+        userCopy.setFirstName(user.getFirstName());
+        userCopy.setLastName(user.getLastName());
         userCopy.setEmail(user.getEmail());
 
         return userCopy;

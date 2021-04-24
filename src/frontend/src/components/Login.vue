@@ -11,7 +11,7 @@
           <input type="password" id="pass" placeholder="Password" required/>
           <a href="#" class="f-pass-b">Forgot password</a>
 
-          <button v-on:click="register">Login</button>
+          <button v-on:click="login">Login</button>
 
         </form>
       </div>
@@ -25,10 +25,26 @@
   </div>
 </template>
 <script>
+import Vue from 'vue';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios, axios)
+
 export default {
   methods: {
     register: function () {
       this.$router.push('register');
+    },
+    login: function() {
+      let email = document.getElementById("email").value;
+      let pass = document.getElementById("pass").value;
+
+      if(email && pass){
+        this.axios.post("/api/users/login", {
+          email: email,
+          password: pass
+        })
+      }
     }
   }
 }

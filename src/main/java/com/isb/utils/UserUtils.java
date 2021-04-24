@@ -22,9 +22,6 @@ public class UserUtils {
     }
 
     public static void verifyReg(User userToVerify, UserRepository userRepository) throws UserException{
-        if(userRepository.getByUser(userToVerify.getUser()) != null){
-            throw new UserException(Properties.getString("USER_EXIST"));
-        }
         if(userRepository.getByEmail(userToVerify.getEmail()) != null){
             throw new UserException(Properties.getString("EMAIL_EXIST"));
         }

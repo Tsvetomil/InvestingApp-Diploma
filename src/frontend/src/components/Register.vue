@@ -11,6 +11,7 @@
           <input type="text" id="fname" placeholder="First Name" required/>
           <input type="text" id="lname" placeholder="Last Name" required/>
           <input type="password" id="pass" placeholder="Password" required/>
+          <label for="date">Date of Birth</label>
           <input type="date" id="date" placeholder="Date of Birth" required/>
 
           <button v-on:click="register">Register</button>
@@ -20,23 +21,35 @@
   </div>
 </template>
 <script>
-function validateFields() {
-  // let email = document.getElementById("email").value;
-  // let fname = document.getElementById("fname").value;
-  // let lname = document.getElementById("lname").value;
-  // let pass = document.getElementById("pass").value;
-  //
-  // if(email && fname && lname && pass){
-  //   alert("ok")
-  // }else{
-  //   alert("not ok")
-  // }
-}
+import Vue from 'vue';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios, axios)
 
 export default {
+
+  data() {
+    return {
+      msg: ""
+    }
+  },
   methods: {
     register: function () {
-      validateFields()
+      let email = document.getElementById("email").value;
+      let fname = document.getElementById("fname").value;
+      let lname = document.getElementById("lname").value;
+      let pass = document.getElementById("pass").value;
+      let date = document.getElementById("date").value;
+
+      if(email && fname && lname && pass && date){
+        this.axios.post("/api/users/register", {
+          firstName: fname,
+          lastName: lname,
+          email: email,
+          password: pass,
+          dateOfBirth: date
+        })
+      }
 
     }
   }
