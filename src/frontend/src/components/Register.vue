@@ -1,3 +1,112 @@
 <template>
-  <h1>In Register</h1>
+  <div class="container">
+    <div class="text-overlay">
+      <h2>Welcome!</h2>
+      <p>Please fill out the form to sign up</p>
+    </div>
+    <div class="form-overlay">
+      <div class="sign-in-form">
+        <form class="sign-in" action="#">
+          <input type="email" id="email" placeholder="Email" required/>
+          <input type="text" id="fname" placeholder="First Name" required/>
+          <input type="text" id="lname" placeholder="Last Name" required/>
+          <input type="password" id="pass" placeholder="Password" required/>
+          <input type="date" id="date" placeholder="Date of Birth" required/>
+
+          <button v-on:click="register">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </template>
+<script>
+function validateFields() {
+  // let email = document.getElementById("email").value;
+  // let fname = document.getElementById("fname").value;
+  // let lname = document.getElementById("lname").value;
+  // let pass = document.getElementById("pass").value;
+  //
+  // if(email && fname && lname && pass){
+  //   alert("ok")
+  // }else{
+  //   alert("not ok")
+  // }
+}
+
+export default {
+  methods: {
+    register: function () {
+      validateFields()
+
+    }
+  }
+}
+</script>
+<style>
+.text-overlay {
+  position: relative;
+  background: #c6e7ae;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  padding: 10px;
+  border-radius: 50px;
+}
+.container {
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  background: #ffffff;
+}
+.sign-in-form {
+  top: 0;
+  padding: 50px 60px;
+}
+input {
+  display: block;
+  background-color: #c6e7ae;
+  padding: 12px 26px;
+  margin: 20px 0;
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .4),
+  0 -1px 1px #fff,
+  0 1px 0 #fff;
+  outline: none;
+}
+button {
+  border-radius: 20px;
+  border: 1px solid #009345;
+  background-color: #009345;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 40px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+button:active {
+  transform: scale(.9);
+}
+
+button:focus {
+  outline: none;
+}
+.sign-up-overlay button {
+  border: 1px solid #000000;
+  background-color: #2a342f;
+}
+.form-overlay {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  margin: auto;
+}
+</style>

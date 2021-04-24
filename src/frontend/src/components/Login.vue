@@ -7,8 +7,8 @@
     <div class="form-overlay">
       <div class="sign-in-form">
         <form class="sign-in" action="#">
-          <input type="text" id="email" placeholder="Email"/>
-          <input type="text" id="pass" placeholder="Password"/>
+          <input type="email" id="email" placeholder="Email" required/>
+          <input type="password" id="pass" placeholder="Password" required/>
           <a href="#" class="f-pass-b">Forgot password</a>
 
           <button v-on:click="register">Login</button>
@@ -16,7 +16,7 @@
         </form>
       </div>
       <div class="sign-up-overlay">
-        <h3> Don't have an account</h3>
+        <h3> Don't have an account ?</h3>
         <router-link to="/register">
           <button>Sign up</button>
         </router-link>
