@@ -1,0 +1,7 @@
+LOGOUT_SUCCESSFUL=logout successful
+WRONG_CREDS=Wrong credentials
+WEAK_PASS=Password too weak
+INVALID_EMAIL=Invalid email
+NOT_LOGGED_IN=You are not logged in
+USER_EXIST=Username already exist
+EMAIL_EXIST=Email already exist
