@@ -10,25 +10,38 @@
           <input type="text" id="email" placeholder="Email"/>
           <input type="text" id="pass" placeholder="Password"/>
           <a href="#" class="f-pass-b">Forgot password</a>
-          <button>Login</button>
+
+          <button v-on:click="register">Login</button>
+
         </form>
       </div>
       <div class="sign-up-overlay">
         <h3> Don't have an account</h3>
-        <button>Sign up</button>
+        <router-link to="/register">
+          <button>Sign up</button>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
-
+<script>
+export default {
+  methods: {
+    register: function () {
+      this.$router.push('register');
+    }
+  }
+}
+</script>
 <style>
 .text-overlay {
   position: relative;
-  background: #e6ece0;
+  background: #c6e7ae;
   margin-left: auto;
   margin-right: auto;
   width: 40%;
   padding: 10px;
+  border-radius: 50px;
 }
 .container {
   padding: 10px;
@@ -46,8 +59,17 @@
 }
 input {
   display: block;
+  background-color: #c6e7ae;
   padding: 12px 26px;
   margin: 20px 0;
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .4),
+  0 -1px 1px #fff,
+  0 1px 0 #fff;
+  outline: none;
 }
 button {
   border-radius: 20px;
