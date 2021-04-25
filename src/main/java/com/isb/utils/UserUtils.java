@@ -22,15 +22,15 @@ public class UserUtils {
     }
 
     public static void verifyReg(User userToVerify, UserRepository userRepository) throws UserException{
-        if(userRepository.getByEmail(userToVerify.getEmail()) != null){
-            throw new UserException(Properties.getString("EMAIL_EXIST"));
-        }
-        if(!VALID_PASS_REGEX.matcher(userToVerify.getPassword()).matches()){
-            throw new UserException(Properties.getString("WEAK_PASS"));
-        }
-        if(!VALID_EMAIL_ADDRESS_REGEX.matcher(userToVerify.getEmail()).matches()){
-            throw new UserException(Properties.getString("INVALID_EMAIL"));
-        }
+//        if(userRepository.getByEmail(userToVerify.getEmail()) != null){
+//            throw new UserException(Properties.getString("EMAIL_EXIST"));
+//        }
+//        if(!VALID_PASS_REGEX.matcher(userToVerify.getPassword()).matches()){
+//            throw new UserException(Properties.getString("WEAK_PASS"));
+//        }
+//        if(!VALID_EMAIL_ADDRESS_REGEX.matcher(userToVerify.getEmail()).matches()){
+//            throw new UserException(Properties.getString("INVALID_EMAIL"));
+//        }
     }
 
     public static UserDTO getUser(HttpSession session) throws UserException {

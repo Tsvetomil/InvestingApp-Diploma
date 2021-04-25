@@ -49,6 +49,8 @@ export default {
           password: pass,
           dateOfBirth: date
         })
+        //validate email
+        this.$router.push('/login')
       }
 
     }

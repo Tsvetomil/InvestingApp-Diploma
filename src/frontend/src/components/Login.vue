@@ -6,12 +6,15 @@
     </div>
     <div class="form-overlay">
       <div class="sign-in-form">
-        <form class="sign-in" action="#">
+        <form class="sign-in">
           <input type="email" id="email" placeholder="Email" required/>
           <input type="password" id="pass" placeholder="Password" required/>
+          <p v-if="errors.length">
+            Email or password is incorrect
+          </p>
           <a href="#" class="f-pass-b">Forgot password</a>
 
-          <button v-on:click="login">Login</button>
+          <button type="button" v-on:click="login">Login</button>
 
         </form>
       </div>
@@ -31,19 +34,32 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
 export default {
+  data() {
+    return {
+      errors: []
+    }
+  },
   methods: {
     register: function () {
       this.$router.push('register');
     },
-    login: function() {
+    login: async function() {
+      this.errors = [];
       let email = document.getElementById("email").value;
       let pass = document.getElementById("pass").value;
 
       if(email && pass){
-        this.axios.post("/api/users/login", {
+        let resp = await this.axios.post("/api/users/login", {
           email: email,
           password: pass
-        })
+        }).catch(e =>
+            this.errors.push(e)
+        )
+
+        if(resp.status === 200){
+          this.$router.push('/');
+        }
+
       }
     }
   }
