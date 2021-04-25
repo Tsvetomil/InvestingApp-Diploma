@@ -4,6 +4,7 @@
       <h2>Welcome Back!</h2>
       <p>Please sign in to continue.</p>
     </div>
+    <div id="loading"></div>
     <div class="form-overlay">
       <div class="sign-in-form">
         <form class="sign-in">
@@ -15,9 +16,9 @@
           <a href="#" class="f-pass-b">Forgot password</a>
 
           <button type="button" v-on:click="login">Login</button>
-
         </form>
       </div>
+
       <div class="sign-up-overlay">
         <h3> Don't have an account ?</h3>
         <router-link to="/register">
@@ -44,6 +45,8 @@ export default {
       this.$router.push('register');
     },
     login: async function() {
+      const loader = document.querySelector("#loading");
+      loader.classList.add("display");
       this.errors = [];
       let email = document.getElementById("email").value;
       let pass = document.getElementById("pass").value;
@@ -56,10 +59,12 @@ export default {
             this.errors.push(e)
         )
 
+        loader.classList.remove("display")
         if(resp.status === 200){
           this.$router.push('/');
         }
-
+      } else{
+        loader.classList.remove("display")
       }
     }
   }
@@ -140,5 +145,26 @@ button:focus {
   /*position: relative;*/
   /*left: 30%;*/
   float: right;
+}
+#loading {
+  width: 2rem;
+  height: 2rem;
+  border: 5px solid #f3f3f3;
+  border-top: 6px solid #9c41f2;
+  border-radius: 100%;
+  visibility: hidden;
+  animation: spin 1s infinite linear;
+  margin: auto;
+}
+#loading.display {
+  visibility: visible;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
