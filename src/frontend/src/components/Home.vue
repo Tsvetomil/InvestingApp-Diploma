@@ -18,11 +18,21 @@
         </div>
       </div>
     </div>
+    <ItemList/>
   </div>
 </template>
 
 <script>
+import ItemList from './ItemList.vue'
 export default {
+  components: {
+    ItemList
+  },
+  data() {
+    return {
+      items: null
+    }
+  },
   name: 'Home',
   props: {
     msg: String
@@ -89,5 +99,8 @@ export default {
 .login a:hover, a:active {
   background-color: green;
   color: white;
+}
+li {
+  list-style-type: none;
 }
 </style>

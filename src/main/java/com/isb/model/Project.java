@@ -15,7 +15,10 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private int priceNeeded;
+    private String caption;
+    private double raised;
+    private double minTarget;
+    private String location;
     private String description;
     private byte[] media;
     private long userID;
