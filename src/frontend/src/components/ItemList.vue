@@ -1,13 +1,14 @@
 <template>
   <div>
     <h1>Projects</h1>
-    <table>
+    <table v-if="isDataLoaded()">
       <tr class="project" v-for="item in list" v-bind:key="item.id">
         <td>{{ item.caption }}</td>
         <td>{{ item.raised }}</td>
         <td>{{ item.description }}</td>
       </tr>
     </table>
+    <h1 v-else>Loading...</h1>
   </div>
 </template>
 <script>
@@ -28,6 +29,11 @@ export default {
       this.list = resp.data;
       console.warn(resp.data)
     })
+  },
+  methods: {
+    isDataLoaded: function(){
+      return this.list !== undefined;
+    }
   }
 }
 </script>
