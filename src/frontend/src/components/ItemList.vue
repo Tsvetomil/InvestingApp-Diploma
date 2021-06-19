@@ -8,16 +8,18 @@
         <td>{{ item.description }}</td>
       </tr>
     </table>
-    <h1 v-else>Loading...</h1>
+    <div v-else><spinner/></div>
   </div>
 </template>
 <script>
 import Vue from 'vue';
 import VueAxios from "vue-axios";
 import axios from "axios";
+import Spinner from './Spinner.vue';
 Vue.use(VueAxios, axios)
 export default {
   name:"ItemList",
+  components: {Spinner},
   data()
   {
     return{list: undefined}
