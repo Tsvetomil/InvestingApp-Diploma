@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Logo/>
     <div class="text-overlay">
       <h2>Welcome Back!</h2>
       <p>Please sign in to continue.</p>
@@ -32,9 +33,11 @@
 import Vue from 'vue';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Logo from "@/components/Logo";
 Vue.use(VueAxios, axios)
 
 export default {
+  components: {Logo},
   data() {
     return {
       errors: []

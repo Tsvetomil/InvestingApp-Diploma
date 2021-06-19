@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <div class="navbar">
+      <Logo/>
       <div class="login">
         <a href="/login"> Sign In </a>
         <router-view></router-view>
@@ -24,9 +25,10 @@
 
 <script>
 import ItemList from './ItemList.vue'
+import Logo from "@/components/Logo";
 export default {
   components: {
-    ItemList
+    ItemList,Logo
   },
   data() {
     return {
