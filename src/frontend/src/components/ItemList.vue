@@ -48,16 +48,16 @@ table {
 }
 
 .project {
-  /*position: relative;*/
   display:table-cell;
   border: 1pt solid black;
   padding: 20px;
-  margin-right: 20px;
 }
 
 .row {
   border: solid 1px #404040;
   margin-left: auto;
   padding: 10px;
+  border-collapse: separate;
+  border-spacing: 30px;
 }
 </style>
