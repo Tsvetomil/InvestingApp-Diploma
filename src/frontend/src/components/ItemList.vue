@@ -2,11 +2,13 @@
   <div>
     <h1>Projects</h1>
     <table v-if="isDataLoaded()">
-      <tr class="project" v-for="item in list" v-bind:key="item.id">
-        <td>{{ item.caption }}</td>
-        <td>{{ item.raised }}</td>
-        <td>{{ item.description }}</td>
-      </tr>
+      <div class="row" v-for="i in Math.ceil(list.length / 3)" v-bind:key="i">
+        <tr class="project" v-for="item in list.slice((i - 1) * 3, i * 3)" v-bind:key="item.id">
+          <td class="pr-caption">{{ item.caption }}</td>
+          <td class="pr-raised">{{ item.raised }}</td>
+          <td class="pr-desc">{{ item.description }}</td>
+        </tr>
+      </div>
     </table>
     <div v-else><spinner/></div>
   </div>
@@ -41,10 +43,21 @@ export default {
 </script>
 <style>
 table {
-  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-tr {
+.project {
+  /*position: relative;*/
+  display:table-cell;
   border: 1pt solid black;
+  padding: 20px;
+  margin-right: 20px;
+}
+
+.row {
+  border: solid 1px #404040;
+  margin-left: auto;
+  padding: 10px;
 }
 </style>
