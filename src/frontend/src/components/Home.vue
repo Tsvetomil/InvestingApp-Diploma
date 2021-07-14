@@ -3,18 +3,24 @@
     <div class="navbar">
       <Logo/>
       <div class="login">
-        <a href="/login"> Sign In </a>
+        <a class="login-button" href="/login"> Sign In </a>
         <router-view></router-view>
       </div>
       <div class="menu">
         <div class="menu-item menu-item-left">
           <div class="menu-text">
-            Get Funding
+            <a href="/raise-capital">
+              <p class="home-text"> Get Funding </p>
+            </a>
+            <router-view></router-view>
           </div>
         </div>
         <div class="menu-item menu-item-right">
           <div class="menu-text">
-            Invest
+            <a href="/">
+              <p class="home-text"> Invest </p>
+            </a>
+            <router-view></router-view>
           </div>
         </div>
       </div>
@@ -55,8 +61,11 @@ export default {
   cursor: pointer;
   color: #436186;
 }
-.login:hover {
-  color: #2775c8;
+a{
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
 }
 .menu {
   display: flex;
@@ -72,15 +81,19 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.menu-text{
+.home-text{
   font-size: 20px;
   color: #818181;
   cursor: pointer;
   border-bottom: 2px solid #e5e0e0;
   width: fit-content;
 }
-.menu-text:hover {
+.home-text:hover {
   border-bottom: 2px solid #2e2437;
+  color: #2e2437;
+}
+.home-text a:link, a:visited{
+  text-decoration: none;
 }
 .menu-item-left {
   margin-left: 250px;
@@ -91,14 +104,18 @@ export default {
 .login a:link, a:visited {
   background-color: white;
   color: black;
-  border: 2px solid green;
+  border: 2px solid #008000;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
 }
 
-.login a:hover, a:active {
+.login-button:hover{
+  background-color: green;
+  color: white;
+}
+.login-button:active{
   background-color: green;
   color: white;
 }

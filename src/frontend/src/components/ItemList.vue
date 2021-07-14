@@ -2,8 +2,8 @@
   <div>
     <h1>Projects</h1>
     <table v-if="isDataLoaded()">
-      <div class="row" v-for="i in Math.ceil(list.length / 3)" v-bind:key="i">
-        <tr class="project" v-for="item in list.slice((i - 1) * 3, i * 3)" v-bind:key="item.id">
+      <div class="row" v-for="i in Math.ceil(list.length / itemsInRow)" v-bind:key="i">
+        <tr class="project" v-for="item in list.slice((i - 1) * itemsInRow, i * itemsInRow)" v-bind:key="item.id">
           <td class="pr-caption">{{ item.caption }}</td>
           <td class="pr-raised">{{ item.raised }}</td>
           <td class="pr-desc">{{ item.description }}</td>
@@ -20,11 +20,12 @@ import axios from "axios";
 import Spinner from './Spinner.vue';
 Vue.use(VueAxios, axios)
 export default {
+
   name:"ItemList",
   components: {Spinner},
   data()
   {
-    return{list: undefined}
+    return{list: undefined, itemsInRow: 3}
   },
   mounted()
   {
