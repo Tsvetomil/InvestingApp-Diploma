@@ -18,17 +18,19 @@
           </div>
           <input type="text" id="phone" placeholder="Phone Number*" required/>
           <label for="toRaise">How much are you looking to raise?*</label>
-          <br>
           <select id="toRaise" name="toRaise">
             <option value="$0 - $100K"> $0 - $100K </option>
             <option value="$100K - $500K"> $100K - $500K </option>
             <option value="$500K - $1M"> $500K - $1M </option>
             <option value="$1M+"> $1M+  </option>
           </select>
+          <label for="desc">Description (Why should investors invest in you?)</label>
+          <textarea id="desc" rows="4" cols="50">
 
-
-<!--          <button v-on:click="register">Register</button>-->
+          </textarea>
         </form>
+
+        <button class="submit-button" v-on:click="register">Submit</button>
       </div>
     </div>
   </div>
@@ -94,29 +96,29 @@ input {
   0 1px 0 #fff;
   outline: none;
 }
-button {
-  border-radius: 20px;
-  border: 1px solid #009345;
-  background-color: #009345;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 10px 40px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-button:active {
-  transform: scale(.9);
-}
+/*button {*/
+/*  border-radius: 20px;*/
+/*  border: 1px solid #009345;*/
+/*  background-color: #009345;*/
+/*  color: #fff;*/
+/*  font-size: 1rem;*/
+/*  font-weight: bold;*/
+/*  padding: 10px 40px;*/
+/*  letter-spacing: 1px;*/
+/*  text-transform: uppercase;*/
+/*  cursor: pointer;*/
+/*}*/
+/*button:active {*/
+/*  transform: scale(.9);*/
+/*}*/
 
-button:focus {
-  outline: none;
-}
-.sign-up-overlay button {
-  border: 1px solid #000000;
-  background-color: #2a342f;
-}
+/*button:focus {*/
+/*  outline: none;*/
+/*}*/
+/*.sign-up-overlay button {*/
+/*  border: 1px solid #000000;*/
+/*  background-color: #2a342f;*/
+/*}*/
 .form-overlay {
   display: inline-flex;
   position: relative;
@@ -125,13 +127,30 @@ button:focus {
 }
 input{
   margin-right: 10px;
+  margin-left: 10px;
 }
 select{
   background-color: #c6e7ae;
-  width: 100%;
+  width: 95%;
   height: 30px;
+  position: inherit;
+  /*margin-left: 20px;*/
 }
-option{
-  width: 100%;
+label{
+  display: flex;
+  flex-direction: row;
+  /*margin: auto;*/
+  margin-top: 35px;
+  margin-bottom: 6px;
+}
+#desc{
+  width: 95%;
+  border: 1px solid #cdcdcd;
+  resize: vertical;
+  background-color: #ffffff;
+  font-size: 16px;
+}
+.submit-button{
+  margin-top: 10%
 }
 </style>
