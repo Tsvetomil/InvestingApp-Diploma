@@ -5,6 +5,7 @@
       <h2>Find Your Investors!</h2>
       <p>Please fill out the form to get started</p>
     </div>
+
     <div class="form-overlay">
       <div class="sign-in-form">
         <form class="sign-in" action="#">
@@ -26,11 +27,15 @@
           </select>
           <label for="desc">Description (Why should investors invest in you?)</label>
           <textarea id="desc" rows="4" cols="50">
-
           </textarea>
+          <label for="file-input"> Thumbnail for the project </label>
+          <input type="file" accept="image/*" @change="onFileSelected" id="file-input">
+          <div id="loading"></div>
+          <p class="error-msg" v-if="errors.length">
+            {{this.errors[0].response.data.msg}}
+          </p>
         </form>
-
-        <button class="submit-button" v-on:click="register">Submit</button>
+        <button class="submit-button" v-on:click="submit">Submit</button>
       </div>
     </div>
   </div>
@@ -46,10 +51,45 @@ export default {
   components: {Logo},
   data() {
     return {
-      msg: ""
+      selectedImage: null,
+      msg: "",
+      errors: []
     }
   },
   methods: {
+    onFileSelected(event) {
+      this.selectedImage = event.target.files[0];
+      console.log(event)
+    },
+    submit: async function() {
+      const loader = document.querySelector("#loading");
+      loader.classList.add("display");
+      this.errors = [];
+      let fname = document.getElementById("fname").value;
+      let lname = document.getElementById("lname").value;
+      let companyName = document.getElementById("companyName").value;
+      let email = document.getElementById("email").value;
+      let phone = document.getElementById("phone").value;
+      let description = document.getElementById("desc").value;
+      let toRaise = document.getElementById("toRaise").value;
+
+      let resp = await this.axios.post("/api/project/add", {
+        email: email,
+        fname: fname,
+        lname: lname,
+        companyName: companyName,
+        phone: phone,
+        description: description,
+        toRaise: toRaise
+      }).catch(e =>
+          this.errors.push(e)
+      )
+
+      loader.classList.remove("display")
+      if(resp.status === 200){
+        this.$router.push('/');
+      }
+    }
   }
 }
 </script>
@@ -150,7 +190,22 @@ label{
   background-color: #ffffff;
   font-size: 16px;
 }
-.submit-button{
-  margin-top: 10%
+#loading {
+  width: 2rem;
+  height: 2rem;
+  border: 5px solid #f3f3f3;
+  border-top: 6px solid #9c41f2;
+  border-radius: 100%;
+  visibility: hidden;
+  animation: spin 1s infinite linear;
+  margin: auto;
+}
+#loading.display {
+  visibility: visible;
+}
+.error-msg {
+  color: red;
+  font-weight: bold;
+  font-style: italic;
 }
 </style>

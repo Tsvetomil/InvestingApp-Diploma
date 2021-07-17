@@ -15,11 +15,17 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String caption;
-    private double raised;
-    private double minTarget;
-    private String location;
+    private String fname;
+    private String lname;
+    private String companyName;
+    private String phone;
     private String description;
-    private byte[] media;
+    private String toRaise;
+//    private String caption;
+//    private double raised;
+//    private double minTarget;
+//    private String location;
+//    private String description;
+//    private byte[] media;
     private long userID;
 }
