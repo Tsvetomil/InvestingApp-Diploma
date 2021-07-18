@@ -8,18 +8,19 @@
 
     <div class="form-overlay">
       <div class="sign-in-form">
-        <form class="sign-in" action="#">
+        <form id="add-project-form" class="sign-in" action="#">
           <div class="inputs-row">
             <input type="text" id="fname" placeholder="First Name*" required/>
             <input type="text" id="lname" placeholder="Last Name*" required/>
           </div>
           <div class="inputs-row">
             <input type="text" id="companyName" placeholder="Company Name*" required/>
-            <input type="text" id="email" placeholder="Email*" required/>
+            <input type="email" id="email" placeholder="Email*" required/>
           </div>
           <input type="text" id="phone" placeholder="Phone Number*" required/>
           <label for="toRaise">How much are you looking to raise?*</label>
-          <select id="toRaise" name="toRaise">
+          <select id="toRaise" name="toRaise" required>
+            <option selected="true" disabled="disabled">Please Choose</option>
             <option value="$0 - $100K"> $0 - $100K </option>
             <option value="$100K - $500K"> $100K - $500K </option>
             <option value="$500K - $1M"> $500K - $1M </option>
@@ -34,8 +35,8 @@
           <p class="error-msg" v-if="errors.length">
             {{this.errors[0].response.data.msg}}
           </p>
+          <button type="submit" class="submit-button" v-on:click="validateForm()">Submit</button>
         </form>
-        <button class="submit-button" v-on:click="submit">Submit</button>
       </div>
     </div>
   </div>
@@ -89,6 +90,25 @@ export default {
       if(resp.status === 200){
         this.$router.push('/');
       }
+    },
+    validateForm: function(){
+      let elements = document.getElementById("add-project-form").elements;
+
+      for (let i = 0; i < elements.length; i++) {
+        let element = elements[i];
+        if(element.required){
+          if(!element){
+            return;
+          }
+          if(element.tagName === 'SELECT'){
+            if(element.selectedOptions[0].disabled){
+              // element.style.borderColor = "red"
+              return;
+            }
+          }
+        }
+      }
+      this.submit()
     }
   }
 }
