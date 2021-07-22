@@ -17,7 +17,7 @@
             <input type="text" id="companyName" placeholder="Company Name*" required/>
             <input type="email" id="email" placeholder="Email*" required/>
           </div>
-          <input type="text" id="phone" placeholder="Phone Number*" required/>
+          <input type="number" id="phone" placeholder="Phone Number*" required/>
           <label for="toRaise">How much are you looking to raise?*</label>
           <select id="toRaise" name="toRaise" required>
             <option selected="true" disabled="disabled">Please Choose</option>
@@ -30,7 +30,7 @@
           <textarea id="desc" rows="4" cols="50">
           </textarea>
           <label for="file-input"> Thumbnail for the project </label>
-          <input type="file" accept="image/*" @change="onFileSelected" id="file-input">
+          <input type="file" accept="image/*" @change="onFileSelected" id="file-input" ref="uploadImage" required>
           <div id="loading"></div>
           <p class="error-msg" v-if="errors.length">
             {{this.errors[0].response.data.msg}}
@@ -58,9 +58,8 @@ export default {
     }
   },
   methods: {
-    onFileSelected(event) {
-      this.selectedImage = event.target.files[0];
-      console.log(event)
+    onFileSelected() {
+      this.selectedImage = this.$refs.uploadImage.files[0];
     },
     submit: async function() {
       const loader = document.querySelector("#loading");
@@ -73,6 +72,7 @@ export default {
       let phone = document.getElementById("phone").value;
       let description = document.getElementById("desc").value;
       let toRaise = document.getElementById("toRaise").value;
+      let filePath = document.getElementById("file-input").value;
 
       let resp = await this.axios.post("/api/project/add", {
         email: email,
@@ -81,14 +81,28 @@ export default {
         companyName: companyName,
         phone: phone,
         description: description,
-        toRaise: toRaise
+        toRaise: toRaise,
+        imgPath: filePath
       }).catch(e =>
           this.errors.push(e)
       )
 
-      loader.classList.remove("display")
+
       if(resp.status === 200){
-        this.$router.push('/');
+        let config = {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        };
+        let fd = new FormData();
+        fd.append("imageFile", this.selectedImage);
+        resp = await this.axios.post("/api/project/uploadImage", fd, config).catch(e =>
+            this.errors.push(e)
+        )
+        loader.classList.remove("display")
+        if(resp.status === 200) {
+          this.$router.push('/');
+        }
       }
     },
     validateForm: function(){

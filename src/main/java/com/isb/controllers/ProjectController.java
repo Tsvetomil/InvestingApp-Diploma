@@ -6,8 +6,10 @@ import com.isb.exception.UserException;
 import com.isb.model.Project;
 import com.isb.repository.ProjectRepository;
 import com.isb.utils.UserUtils;
+import com.isb.utils.UtilsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -45,6 +47,18 @@ public class ProjectController implements IController{
     @GetMapping("/")
     public List<Project> getAll(){
         return projectRepository.findAll();
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping("/uploadImage")
+    public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile){
+        try {
+            UtilsService.saveImage(imageFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e);
+        }
+        return "";
     }
 
 }
