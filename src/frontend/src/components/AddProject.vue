@@ -35,8 +35,8 @@
           <p class="error-msg" v-if="errors.length">
             {{this.errors[0].response.data.msg}}
           </p>
-          <button type="submit" class="submit-button" v-on:click="validateForm()">Submit</button>
         </form>
+        <button type="submit" class="submit-button" v-on:click="validateForm()">Submit</button>
       </div>
     </div>
   </div>
