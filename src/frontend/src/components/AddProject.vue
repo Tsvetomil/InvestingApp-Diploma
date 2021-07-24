@@ -8,7 +8,7 @@
 
     <div class="form-overlay">
       <div class="sign-in-form">
-        <form id="add-project-form" class="sign-in" action="#">
+        <form id="add-project-form" class="sign-in">
           <div class="inputs-row">
             <input type="text" id="fname" placeholder="First Name*" required/>
             <input type="text" id="lname" placeholder="Last Name*" required/>
@@ -36,7 +36,7 @@
             {{this.errors[0].response.data.msg}}
           </p>
         </form>
-        <button type="submit" class="submit-button" v-on:click="validateForm()">Submit</button>
+        <button type="submit" class="submit-button" v-on:click="submit()">Submit</button>
       </div>
     </div>
   </div>
@@ -62,6 +62,9 @@ export default {
       this.selectedImage = this.$refs.uploadImage.files[0];
     },
     submit: async function() {
+      if(!this.validateForm()){
+        return;
+      }
       const loader = document.querySelector("#loading");
       loader.classList.add("display");
       this.errors = [];
@@ -72,7 +75,7 @@ export default {
       let phone = document.getElementById("phone").value;
       let description = document.getElementById("desc").value;
       let toRaise = document.getElementById("toRaise").value;
-      let filePath = document.getElementById("file-input").value;
+      let imgName = document.getElementById("file-input").files[0].name;
 
       let resp = await this.axios.post("/api/project/add", {
         email: email,
@@ -82,7 +85,7 @@ export default {
         phone: phone,
         description: description,
         toRaise: toRaise,
-        imgPath: filePath
+        imgName: imgName
       }).catch(e =>
           this.errors.push(e)
       )
@@ -99,11 +102,11 @@ export default {
         resp = await this.axios.post("/api/project/uploadImage", fd, config).catch(e =>
             this.errors.push(e)
         )
-        loader.classList.remove("display")
         if(resp.status === 200) {
           this.$router.push('/');
         }
       }
+      loader.classList.remove("display")
     },
     validateForm: function(){
       let elements = document.getElementById("add-project-form").elements;
@@ -111,18 +114,18 @@ export default {
       for (let i = 0; i < elements.length; i++) {
         let element = elements[i];
         if(element.required){
-          if(!element){
-            return;
+          if(element.value === ""){
+            return false;
           }
           if(element.tagName === 'SELECT'){
             if(element.selectedOptions[0].disabled){
               // element.style.borderColor = "red"
-              return;
+              return false;
             }
           }
         }
       }
-      this.submit()
+      return true;
     }
   }
 }

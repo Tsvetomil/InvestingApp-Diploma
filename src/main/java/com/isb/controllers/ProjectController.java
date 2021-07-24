@@ -6,7 +6,7 @@ import com.isb.exception.UserException;
 import com.isb.model.Project;
 import com.isb.repository.ProjectRepository;
 import com.isb.utils.UserUtils;
-import com.isb.utils.UtilsService;
+import com.isb.utils.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,7 +53,7 @@ public class ProjectController implements IController{
     @PostMapping("/uploadImage")
     public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile){
         try {
-            UtilsService.saveImage(imageFile);
+            ImageUtils.saveImage(imageFile);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e);

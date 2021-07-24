@@ -21,7 +21,7 @@ public class Project {
     private String phone;
     private String description;
     private String toRaise;
-    private String imgPath;
+    private String imgName;
 //    private String caption;
 //    private double raised;
 //    private double minTarget;
