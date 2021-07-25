@@ -24,7 +24,6 @@ public class ProjectController implements IController{
     @Autowired
     private ProjectRepository projectRepository;
 
-    //TODO should return Response with everything
     @PostMapping("/add")
     public Response add(@RequestBody Project project, HttpSession session) throws UserException {
         project.setUserID(UserUtils.getUser(session).getId());
