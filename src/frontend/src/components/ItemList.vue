@@ -5,7 +5,7 @@
       <div class="row" v-for="i in Math.ceil(list.length / itemsInRow)" v-bind:key="i">
         <tr class="project" v-for="item in list.slice((i - 1) * itemsInRow, i * itemsInRow)" v-bind:key="item.id">
           <td class="pr-caption">{{ item.caption }}</td>
-          <td class="pr-raised">{{ item.raised }}</td>
+          <img :src="`${publicPath}images/${item.imgName}`">
           <td class="pr-desc">{{ item.description }}</td>
         </tr>
       </div>
@@ -25,7 +25,7 @@ export default {
   components: {Spinner},
   data()
   {
-    return{list: undefined, itemsInRow: 3}
+    return{list: undefined, itemsInRow: 3, publicPath: process.env.BASE_URL}
   },
   mounted()
   {
@@ -38,6 +38,11 @@ export default {
   methods: {
     isDataLoaded: function(){
       return this.list !== undefined;
+    }
+  },
+  computed: {
+    getImgUrl(pic) {
+        return require('../assets/images/' + pic.list[0].imgName)
     }
   }
 }

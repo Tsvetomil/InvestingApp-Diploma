@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "chunk": "0.0.3",
     "core-js": "^3.6.5",
+    "url-loader": "^4.1.1",
     "vue": "^2.6.11",
     "vue-axios": "^3.2.4",
     "vue-spinners": "^1.0.2"

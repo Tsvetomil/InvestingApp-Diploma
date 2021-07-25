@@ -21,6 +21,9 @@ public class Project {
     private String phone;
     private String description;
     private String toRaise;
+//    private String raised;
+    private String caption;
+//    private String about;
     private String imgName;
 //    private String caption;
 //    private double raised;

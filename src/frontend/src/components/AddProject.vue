@@ -18,6 +18,7 @@
             <input type="email" id="email" placeholder="Email*" required/>
           </div>
           <input type="number" id="phone" placeholder="Phone Number*" required/>
+          <input type="text" id="caption" placeholder="Caption for the project*" required/>
           <label for="toRaise">How much are you looking to raise?*</label>
           <select id="toRaise" name="toRaise" required>
             <option selected="true" disabled="disabled">Please Choose</option>
@@ -76,6 +77,7 @@ export default {
       let description = document.getElementById("desc").value;
       let toRaise = document.getElementById("toRaise").value;
       let imgName = document.getElementById("file-input").files[0].name;
+      let caption = document.getElementById("caption").value;
 
       let resp = await this.axios.post("/api/project/add", {
         email: email,
@@ -85,6 +87,7 @@ export default {
         phone: phone,
         description: description,
         toRaise: toRaise,
+        caption: caption,
         imgName: imgName
       }).catch(e =>
           this.errors.push(e)
@@ -244,5 +247,8 @@ label{
   color: red;
   font-weight: bold;
   font-style: italic;
+}
+#caption{
+  width: 85%;
 }
 </style>

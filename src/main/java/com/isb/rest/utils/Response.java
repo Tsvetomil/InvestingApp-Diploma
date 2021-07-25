@@ -14,6 +14,10 @@ public class Response {
     private LocalDateTime localDateTime = LocalDateTime.now();
     private Object entity;
 
+    public Response(int status){
+        this.status = status;
+    }
+
     public Response(int status, String msg){
         this.status = status;
         this.msg = msg;
