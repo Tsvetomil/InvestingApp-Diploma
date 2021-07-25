@@ -39,11 +39,6 @@ export default {
     isDataLoaded: function(){
       return this.list !== undefined;
     }
-  },
-  computed: {
-    getImgUrl(pic) {
-        return require('../assets/images/' + pic.list[0].imgName)
-    }
   }
 }
 </script>
