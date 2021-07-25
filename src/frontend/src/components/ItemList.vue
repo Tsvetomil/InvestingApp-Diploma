@@ -1,12 +1,14 @@
 <template>
   <div>
-    <h1>Projects</h1>
+    <h1>Бизнеси</h1>
     <table v-if="isDataLoaded()">
       <div class="row" v-for="i in Math.ceil(list.length / itemsInRow)" v-bind:key="i">
         <tr class="project" v-for="item in list.slice((i - 1) * itemsInRow, i * itemsInRow)" v-bind:key="item.id">
+          <td class="pr-companyName"> {{ item.companyName }}</td>
           <td class="pr-caption">{{ item.caption }}</td>
-          <img :src="`${publicPath}images/${item.imgName}`">
-          <td class="pr-desc">{{ item.description }}</td>
+          <img class="img-file" :src="`${publicPath}images/${item.imgName}`">
+          <td class="pr-toRaise">Търсят се: {{ item.toRaise }}</td>
+          <button type="submit" ref="item" class="submit-button" v-on:click="view(item)">Виж повече</button>
         </tr>
       </div>
     </table>
@@ -38,6 +40,9 @@ export default {
   methods: {
     isDataLoaded: function(){
       return this.list !== undefined;
+    },
+    view(item){
+      this.$router.push('/project?id=' + item.id);
     }
   }
 }
@@ -60,5 +65,29 @@ table {
   padding: 10px;
   border-collapse: separate;
   border-spacing: 30px;
+  display: inline-block;
+  align-items: center;
+}
+
+.img-file {
+  width: 360px;
+  height: 250px;
+  background-size: cover;
+  /*border: 6px solid green;*/
+}
+.pr-caption{
+  display: block;
+  justify-content: center;
+  font-size: 25px;
+  color: #000000;
+  /*border: 2px solid green;*/
+}
+.pr-companyName{
+  display: flex;
+  color: #436186;
+  font-size: 20px;
+}
+.pr-toRaise{
+  color: #00a056;
 }
 </style>

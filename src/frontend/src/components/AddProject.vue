@@ -2,42 +2,41 @@
   <div class="container">
     <Logo/>
     <div class="text-overlay">
-      <h2>Find Your Investors!</h2>
-      <p>Please fill out the form to get started</p>
+      <h2>Намери си инвеститор!</h2>
+      <p>Попълнете формата за да започнете</p>
     </div>
 
     <div class="form-overlay">
       <div class="sign-in-form">
         <form id="add-project-form" class="sign-in">
           <div class="inputs-row">
-            <input type="text" id="fname" placeholder="First Name*" required/>
-            <input type="text" id="lname" placeholder="Last Name*" required/>
+            <input type="text" id="fname" placeholder="Собствено име*" required/>
+            <input type="text" id="lname" placeholder="Фамилно име*" required/>
           </div>
           <div class="inputs-row">
-            <input type="text" id="companyName" placeholder="Company Name*" required/>
-            <input type="email" id="email" placeholder="Email*" required/>
+            <input type="text" id="companyName" placeholder="Име на компанията*" required/>
+            <input type="email" id="email" placeholder="Имейл*" required/>
           </div>
-          <input type="number" id="phone" placeholder="Phone Number*" required/>
-          <input type="text" id="caption" placeholder="Caption for the project*" required/>
-          <label for="toRaise">How much are you looking to raise?*</label>
-          <select id="toRaise" name="toRaise" required>
-            <option selected="true" disabled="disabled">Please Choose</option>
-            <option value="$0 - $100K"> $0 - $100K </option>
-            <option value="$100K - $500K"> $100K - $500K </option>
-            <option value="$500K - $1M"> $500K - $1M </option>
-            <option value="$1M+"> $1M+  </option>
-          </select>
-          <label for="desc">Description (Why should investors invest in you?)</label>
+          <div class="inputs-row">
+            <input type="number" id="phone" placeholder="Телефонен номер*" required/>
+            <input type="number" id="website" placeholder="Уебсайт"/>
+          </div>
+          <input type="text" id="address" placeholder="Aдрес*" required/>
+          <input type="text" id="caption" placeholder="Заглавие*" required/>
+          <input type="number" id="toRaise" placeholder="Колко средства търсите да наберете?*(в лева)" required/>
+          <input type="number" id="evaluationPrice" placeholder="На колко се оценява компанията ви в момента?*(в лева)" required/>
+          <input type="number" id="equity" placeholder="Какъв % дял сте готови да дадете на инвеститора?*" required/>
+          <label for="desc">Описание (Защо някой да инвестира във вашата компания)</label>
           <textarea id="desc" rows="4" cols="50">
           </textarea>
-          <label for="file-input"> Thumbnail for the project </label>
+          <label for="file-input"> Снимка за миниатюра на обявата</label>
           <input type="file" accept="image/*" @change="onFileSelected" id="file-input" ref="uploadImage" required>
           <div id="loading"></div>
           <p class="error-msg" v-if="errors.length">
             {{this.errors[0].response.data.msg}}
           </p>
         </form>
-        <button type="submit" class="submit-button" v-on:click="submit()">Submit</button>
+        <button type="submit" class="submit-button" v-on:click="submit()">Изпращане</button>
       </div>
     </div>
   </div>
@@ -74,8 +73,12 @@ export default {
       let companyName = document.getElementById("companyName").value;
       let email = document.getElementById("email").value;
       let phone = document.getElementById("phone").value;
+      let website = document.getElementById("website").value;
+      let address = document.getElementById("address").value;
       let description = document.getElementById("desc").value;
       let toRaise = document.getElementById("toRaise").value;
+      let evaluationPrice = document.getElementById("evaluationPrice").value;
+      let equity = document.getElementById("equity").value;
       let imgName = document.getElementById("file-input").files[0].name;
       let caption = document.getElementById("caption").value;
 
@@ -85,8 +88,12 @@ export default {
         lname: lname,
         companyName: companyName,
         phone: phone,
+        website: website,
+        address: address,
         description: description,
         toRaise: toRaise,
+        evaluationPrice: evaluationPrice,
+        equity: equity,
         caption: caption,
         imgName: imgName
       }).catch(e =>
@@ -120,12 +127,12 @@ export default {
           if(element.value === ""){
             return false;
           }
-          if(element.tagName === 'SELECT'){
-            if(element.selectedOptions[0].disabled){
-              // element.style.borderColor = "red"
-              return false;
-            }
-          }
+          // if(element.tagName === 'SELECT'){
+          //   if(element.selectedOptions[0].disabled){
+          //     // element.style.borderColor = "red"
+          //     return false;
+          //   }
+          // }
         }
       }
       return true;
@@ -249,6 +256,18 @@ label{
   font-style: italic;
 }
 #caption{
+  width: 85%;
+}
+#toRaise{
+  width: 85%;
+}
+#evaluationPrice{
+  width: 85%;
+}
+#equity{
+  width: 85%;
+}
+#address{
   width: 85%;
 }
 </style>

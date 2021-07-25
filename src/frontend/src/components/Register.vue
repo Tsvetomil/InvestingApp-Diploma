@@ -2,20 +2,20 @@
   <div class="container">
     <Logo/>
     <div class="text-overlay">
-      <h2>Welcome!</h2>
-      <p>Please fill out the form to sign up</p>
+      <h2>Добре дошли!</h2>
+      <p>Моля попълнете формата за да се регистрирате</p>
     </div>
     <div class="form-overlay">
       <div class="sign-in-form">
         <form class="sign-in" action="#">
-          <input type="email" id="email" placeholder="Email" required/>
-          <input type="text" id="fname" placeholder="First Name" required/>
-          <input type="text" id="lname" placeholder="Last Name" required/>
-          <input type="password" id="pass" placeholder="Password" required/>
+          <input type="email" id="email" placeholder="Имейл" required/>
+          <input type="text" id="fname" placeholder="Собствено име" required/>
+          <input type="text" id="lname" placeholder="Фамилно име" required/>
+          <input type="password" id="pass" placeholder="Парола" required/>
           <label for="date">Date of Birth</label>
-          <input type="date" id="date" placeholder="Date of Birth" required/>
+          <input type="date" id="date" placeholder="Дата на раждане" required/>
 
-          <button v-on:click="register">Register</button>
+          <button v-on:click="register">Регистриране</button>
         </form>
       </div>
     </div>

@@ -2,28 +2,28 @@
   <div class="container">
     <Logo/>
     <div class="text-overlay">
-      <h2>Welcome Back!</h2>
-      <p>Please sign in to continue.</p>
+      <h2>Здравейте отново!</h2>
+      <p>Моля влезте за да продължите.</p>
     </div>
     <div id="loading"></div>
     <div class="form-overlay">
       <div class="sign-in-form">
         <form class="sign-in">
           <input type="email" id="email" placeholder="Email" required/>
-          <input type="password" id="pass" placeholder="Password" required/>
+          <input @keyup.enter="login" type="password" id="pass" placeholder="Password" required/>
           <p v-if="errors.length">
-            Email or password is incorrect
+            Имейла или паролата е неправилна
           </p>
-          <a href="#" class="f-pass-b">Forgot password</a>
+          <a href="#" class="f-pass-b">Забравена парола</a>
 
-          <button type="button" v-on:click="login">Login</button>
+          <button type="button" v-on:click="login">Влизане</button>
         </form>
       </div>
 
       <div class="sign-up-overlay">
-        <h3> Don't have an account ?</h3>
+        <h3> Нямате акаунт ?</h3>
         <router-link to="/register">
-          <button>Sign up</button>
+          <button>Регистриране</button>
         </router-link>
       </div>
     </div>

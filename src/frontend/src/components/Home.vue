@@ -3,14 +3,14 @@
     <div class="navbar">
       <Logo/>
       <div class="login">
-        <a class="login-button" href="/login"> Sign In </a>
+        <a class="login-button" href="/login"> Влизане </a>
         <router-view></router-view>
       </div>
       <div class="menu">
         <div class="menu-item menu-item-left">
           <div class="menu-text">
             <a href="/raise-capital">
-              <p class="home-text"> Get Funding </p>
+              <p class="home-text"> Вземете финансиране </p>
             </a>
             <router-view></router-view>
           </div>
@@ -18,7 +18,7 @@
         <div class="menu-item menu-item-right">
           <div class="menu-text">
             <a href="/">
-              <p class="home-text"> Invest </p>
+              <p class="home-text"> Инвестирайте </p>
             </a>
             <router-view></router-view>
           </div>

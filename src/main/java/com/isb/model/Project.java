@@ -21,6 +21,10 @@ public class Project {
     private String phone;
     private String description;
     private String toRaise;
+    private String website;
+    private String address;
+    private int evaluationPrice;
+    private int equity;
 //    private String raised;
     private String caption;
 //    private String about;

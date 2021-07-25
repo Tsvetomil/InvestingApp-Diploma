@@ -47,6 +47,11 @@ public class ProjectController implements IController{
         throw new NotDeletedException("Not deleted");
     }
 
+    @GetMapping("/{id}")
+    public Project get(@PathVariable(value="id") long id){
+        return projectRepository.findById(id).get();
+    }
+
     @GetMapping("/")
     public List<Project> getAll(){
         return projectRepository.findAll();
