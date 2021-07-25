@@ -34,6 +34,8 @@ public class ProjectController implements IController{
 
     @DeleteMapping("/remove")
     public void delete(@PathVariable long id, HttpSession session) throws UserException, NotDeletedException {
+        //TODO need to delete the image before that
+        //TODO create restriction for who should be able to delete what
         Optional<Project> project = projectRepository.findById(id);
         if(project.isPresent()){
             UserDTO user = UserUtils.getUser(session);
