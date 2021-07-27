@@ -55,6 +55,14 @@ public class UserController implements IController{
         return new Response(HttpStatus.OK.value(), Properties.getString("LOGOUT_SUCCESSFUL"));
     }
 
+    @GetMapping("/isAuthorized")
+    public Response isAuthorized(HttpSession session){
+        if(session.getAttribute("user") != null){
+            return new Response(HttpStatus.OK.value());
+        }
+        return new Response(HttpStatus.UNAUTHORIZED.value());
+    }
+
     @GetMapping("/test")
     public String test(){
         return "That is an api test";

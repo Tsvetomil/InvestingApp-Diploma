@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Бизнеси</h1>
+    <h1>Вашите активни обяви</h1>
     <table v-if="isDataLoaded()">
       <div class="row" v-for="i in Math.ceil(list.length / itemsInRow)" v-bind:key="i">
         <tr class="project" v-for="item in list.slice((i - 1) * itemsInRow, i * itemsInRow)" v-bind:key="item.id">
@@ -8,7 +8,7 @@
           <td class="pr-caption">{{ item.caption }}</td>
           <img class="img-file" :src="`${publicPath}images/${item.imgName}`">
           <td class="pr-toRaise">Търсят се: {{ item.toRaise }} лв</td>
-          <button type="submit" ref="item" class="submit-button" v-on:click="view(item)">Виж повече</button>
+          <button type="submit" ref="item" class="submit-button" v-on:click="deleteItem(item)">Изтрий</button>
         </tr>
       </div>
     </table>
@@ -31,10 +31,10 @@ export default {
   },
   mounted()
   {
-    Vue.axios.get('/api/project/')
-    .then( (resp) => {
-      this.list = resp.data;
-    })
+    Vue.axios.get('/api/project/user')
+        .then( (resp) => {
+          this.list = resp.data;
+        })
   },
   methods: {
     isDataLoaded: function(){
@@ -42,11 +42,18 @@ export default {
     },
     view(item){
       this.$router.push('/project?id=' + item.id);
+    },
+    async deleteItem(item) {
+      await axios.delete('api/project/remove/' + item.id);
+      window.location.reload()
     }
   }
 }
 </script>
-<style>
+<style scoped>
+.submit-button{
+  background-color: #ff0000;
+}
 table {
   margin-left: auto;
   margin-right: auto;

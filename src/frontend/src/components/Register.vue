@@ -12,8 +12,8 @@
           <input type="text" id="fname" placeholder="Собствено име" required/>
           <input type="text" id="lname" placeholder="Фамилно име" required/>
           <input type="password" id="pass" placeholder="Парола" required/>
-          <label for="date">Date of Birth</label>
-          <input type="date" id="date" placeholder="Дата на раждане" required/>
+          <label for="date">Дата на раждане</label>
+          <input type="date" id="date" required/>
 
           <button v-on:click="register">Регистриране</button>
         </form>

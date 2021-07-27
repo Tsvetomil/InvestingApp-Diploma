@@ -32,8 +32,9 @@ public class ProjectController implements IController{
         return new Response(HttpStatus.OK.value(), project);
     }
 
-    @DeleteMapping("/remove")
-    public void delete(@PathVariable long id, HttpSession session) throws UserException, NotDeletedException {
+    @DeleteMapping("/remove/{id}")
+    @ResponseBody
+    public void delete(@PathVariable(value="id") long id, HttpSession session) throws UserException, NotDeletedException {
         //TODO need to delete the image before that
         //TODO create restriction for who should be able to delete what
         Optional<Project> project = projectRepository.findById(id);
@@ -55,6 +56,11 @@ public class ProjectController implements IController{
     @GetMapping("/")
     public List<Project> getAll(){
         return projectRepository.findAll();
+    }
+
+    @GetMapping("/user")
+    public List<Project> getAllByID(HttpSession session) throws UserException {
+        return projectRepository.getProjectsByUserID(UserUtils.getUser(session).getId());
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")

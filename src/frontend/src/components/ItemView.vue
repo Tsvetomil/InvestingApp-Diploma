@@ -6,22 +6,20 @@
     <div class="container">
       <table>
         <tr>
-          <th>{{item.toRaise}}</th>
+          <th>{{item.toRaise}} лв</th>
           <th>{{item.phone}}</th>
           <th>{{item.companyName}}</th>
-<!--          <th>{{item.website}}</th>-->
-<!--          <th>{{item.country}}</th>-->
-<!--          <th>{{item.address}}</th>-->
+          <th><a href="javascript:void(0)" v-on:click="this.testFunc"><i>{{item.website}}</i></a></th>
         </tr>
         <tr>
-          <td><h4>Средства които се търсят</h4></td>
+          <td><h4>Средства които се търсят в замяна на <span style="color:#ca4949">{{item.equity}}% от компанията</span></h4></td>
           <td><h4>Телефонен номер</h4></td>
           <td><h4>Име на компанията</h4></td>
-<!--          <td>website</td>-->
+          <td><h4>Уебсайт на компанията</h4></td>
 <!--          <td>country</td>-->
-<!--          <td>address</td>-->
         </tr>
       </table>
+
       <p>{{item.description}}</p>
 <!--        <div class="column">-->
 <!--          <h3>{{item.toRaise}}</h3>-->
@@ -60,12 +58,22 @@ export default {
           this.item = resp.data;
           console.warn(resp.data)
         })
+  },
+  methods: {
+    testFunc: function() {
+      let website = this.item.website;
+      if(!website.includes("http")){
+        website = "http://" + website;
+      }
+      window.location.href = website;
+          // this.item.website;
+    }
   }
 }
 </script>
 <style>
 table{
-  border-spacing: 50px 0;
+  border-spacing: 10px 10px;
 }
 h4{
   color: #c3bcbc;

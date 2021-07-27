@@ -19,7 +19,7 @@
           </div>
           <div class="inputs-row">
             <input type="number" id="phone" placeholder="Телефонен номер*" required/>
-            <input type="number" id="website" placeholder="Уебсайт"/>
+            <input type="text" id="website" placeholder="Уебсайт"/>
           </div>
           <input type="text" id="address" placeholder="Aдрес*" required/>
           <input type="text" id="caption" placeholder="Заглавие*" required/>

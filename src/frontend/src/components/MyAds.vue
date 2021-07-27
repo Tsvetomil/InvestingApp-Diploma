@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import ItemList from './ItemList.vue'
+import ItemList from './ItemListByUser'
 import Logo from "@/components/Logo";
 import axios from "axios";
 export default {
