@@ -71,8 +71,6 @@ table {
   padding: 10px;
   border-collapse: separate;
   border-spacing: 30px;
-  display: inline-block;
-  align-items: center;
 }
 
 .img-file {
