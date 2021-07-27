@@ -8,6 +8,7 @@
           <td class="pr-caption">{{ item.caption }}</td>
           <img class="img-file" :src="`${publicPath}images/${item.imgName}`">
           <td class="pr-toRaise">Търсят се: {{ item.toRaise }} лв</td>
+          <button type="submit" ref="item" class="edit-button" v-on:click="editItem()">Редактирай</button>
           <button type="submit" ref="item" class="submit-button" v-on:click="deleteItem(item)">Изтрий</button>
         </tr>
       </div>
@@ -46,6 +47,9 @@ export default {
     async deleteItem(item) {
       await axios.delete('api/project/remove/' + item.id);
       window.location.reload()
+    },
+    editItem() {
+
     }
   }
 }

@@ -97,12 +97,16 @@ a{
   /*justify-content: center;*/
   /*align-items: center;*/
 }
+#get-financing {
+  margin-right: 100px;
+}
 .home-text{
   font-size: 20px;
   color: #818181;
   cursor: pointer;
   border-bottom: 2px solid #e5e0e0;
   width: fit-content;
+  margin-right: -120px;
 }
 .home-text:hover {
   border-bottom: 2px solid #2e2437;
