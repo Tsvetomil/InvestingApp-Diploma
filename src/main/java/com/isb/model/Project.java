@@ -19,21 +19,15 @@ public class Project {
     private String lname;
     private String companyName;
     private String phone;
+    private String reasonsToInvest;
     private String description;
     private String toRaise;
     private String website;
     private String address;
     private int evaluationPrice;
     private int equity;
-//    private String raised;
     private String caption;
-//    private String about;
     private String imgName;
-//    private String caption;
-//    private double raised;
-//    private double minTarget;
-//    private String location;
-//    private String description;
-//    private byte[] media;
+    private String city;
     private long userID;
 }

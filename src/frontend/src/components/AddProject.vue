@@ -26,8 +26,11 @@
           <input type="number" id="toRaise" placeholder="Колко средства търсите да наберете?*(в лева)" required/>
           <input type="number" id="evaluationPrice" placeholder="На колко се оценява компанията ви в момента?*(в лева)" required/>
           <input type="number" id="equity" placeholder="Какъв % дял сте готови да дадете на инвеститора?*" required/>
-          <label for="desc">Описание (Защо някой да инвестира във вашата компания)</label>
-          <textarea id="desc" rows="4" cols="50">
+          <label for="desc">Описание</label>
+          <textarea id="desc" rows="10" cols="50">
+          </textarea>
+          <label for="reasonsToInvest">Защо някой да инвестира във вашата компания?</label>
+          <textarea id="reasonsToInvest" rows="4" cols="50">
           </textarea>
           <label for="file-input"> Снимка за миниатюра на обявата</label>
           <input type="file" accept="image/*" @change="onFileSelected" id="file-input" ref="uploadImage" required>
@@ -81,6 +84,7 @@ export default {
       let equity = document.getElementById("equity").value;
       let imgName = document.getElementById("file-input").files[0].name;
       let caption = document.getElementById("caption").value;
+      let reasonsToInvest = document.getElementById("reasonsToInvest").value;
 
       let resp = await this.axios.post("/api/project/add", {
         email: email,
@@ -95,7 +99,8 @@ export default {
         evaluationPrice: evaluationPrice,
         equity: equity,
         caption: caption,
-        imgName: imgName
+        imgName: imgName,
+        reasonsToInvest: reasonsToInvest,
       }).catch(e =>
           this.errors.push(e)
       )
@@ -231,6 +236,14 @@ label{
   margin-bottom: 6px;
 }
 #desc{
+  width: 120%;
+  display: block;
+  border: 1px solid #cdcdcd;
+  resize: vertical;
+  background-color: #ffffff;
+  font-size: 16px;
+}
+#reasonsToInvest{
   width: 95%;
   border: 1px solid #cdcdcd;
   resize: vertical;

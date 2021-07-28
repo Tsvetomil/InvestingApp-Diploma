@@ -80,4 +80,9 @@ public class ProjectController implements IController{
         return new Response(HttpStatus.OK.value());
     }
 
+    @PostMapping("/edit/{id}")
+    public Project edit(@RequestBody Project project, @PathVariable(value="id") long id, HttpSession session){
+        return null;
+    }
+
 }

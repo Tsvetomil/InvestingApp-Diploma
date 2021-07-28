@@ -56,6 +56,7 @@ table {
   display:table-cell;
   border: 1pt solid black;
   padding: 20px;
+  background-color: #dcdfe3;
 }
 
 .row {

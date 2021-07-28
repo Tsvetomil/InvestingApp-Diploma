@@ -6,29 +6,27 @@
     <div class="container">
       <table>
         <tr>
-          <th>{{item.toRaise}} лв</th>
+          <th>{{item.toRaise}} лв в замяна на <span style="color:#ca4949">{{item.equity}}% от компанията</span></th>
           <th>{{item.phone}}</th>
           <th>{{item.companyName}}</th>
           <th><a href="javascript:void(0)" v-on:click="this.testFunc"><i>{{item.website}}</i></a></th>
         </tr>
         <tr>
-          <td><h4>Средства които се търсят в замяна на <span style="color:#ca4949">{{item.equity}}% от компанията</span></h4></td>
+          <td><h4>Средства които се търсят</h4></td>
           <td><h4>Телефонен номер</h4></td>
           <td><h4>Име на компанията</h4></td>
           <td><h4>Уебсайт на компанията</h4></td>
-<!--          <td>country</td>-->
         </tr>
       </table>
 
+
+    </div>
+    <div class="container-desc">
+
       <p>{{item.description}}</p>
-<!--        <div class="column">-->
-<!--          <h3>{{item.toRaise}}</h3>-->
-<!--          <h4>Looking to raise</h4>-->
-<!--        </div>-->
-<!--        <div class="column">-->
-<!--          <h3>{{item.toRaise}}</h3>-->
-<!--          <h4>Looking to raise</h4>-->
-<!--        </div>-->
+      <div class="cr-reasons-to-invest">
+        <p>{{item.reasonsToInvest}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -71,11 +69,27 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 table{
   border-spacing: 10px 10px;
 }
 h4{
   color: #c3bcbc;
+}
+.container-desc{
+  margin-top: 100px;
+  background-color: white;
+  height: 100%;
+  border: 3px solid #15bf3e;
+  padding: 10px;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+.cr-reasons-to-invest{
+  background-color: #d05858;
+}
+img {
+  width: 50%;
+  height: auto;
 }
 </style>

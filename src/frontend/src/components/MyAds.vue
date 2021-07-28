@@ -90,6 +90,9 @@ a{
   margin-top: 10px;
   height: 60px;
 }
+#get-financing {
+  margin-right: 100px;
+}
 .menu-item {
   /*flex: 1;*/
   /*text-align: center;*/
@@ -103,6 +106,7 @@ a{
   cursor: pointer;
   border-bottom: 2px solid #e5e0e0;
   width: fit-content;
+  margin-right: -120px;
 }
 .home-text:hover {
   border-bottom: 2px solid #2e2437;
