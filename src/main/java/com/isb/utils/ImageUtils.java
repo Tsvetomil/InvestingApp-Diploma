@@ -1,5 +1,6 @@
 package com.isb.utils;
 
+import org.jboss.logging.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -38,5 +39,13 @@ public class ImageUtils {
         String datetime = ft.format(dNow);
 
         return datetime + UNDERSCORE + imgName;
+    }
+
+    public static void deleteImage(String imgName) {
+        boolean delete = new File(IMG_DIR + File.separator + imgName).delete();
+
+        if(!delete){
+            Logger.getLogger(ImageUtils.class).warn(imgName + " not deleted");
+        }
     }
 }

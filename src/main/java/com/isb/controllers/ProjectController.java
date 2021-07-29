@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,11 +38,14 @@ public class ProjectController implements IController{
     public void delete(@PathVariable(value="id") long id, HttpSession session) throws UserException, NotDeletedException {
         //TODO need to delete the image before that
         //TODO create restriction for who should be able to delete what
-        Optional<Project> project = projectRepository.findById(id);
-        if(project.isPresent()){
+        Optional<Project> projectOpt = projectRepository.findById(id);
+        if(projectOpt.isPresent()){
             UserDTO user = UserUtils.getUser(session);
-            if(user.getId() == project.get().getUserID()){
-                projectRepository.delete(project.get());
+            Project project = projectOpt.get();
+            if(user.getId() == project.getUserID()){
+                ImageUtils.deleteImage(project.getImgName());
+                new File(project.getImgName()).delete();
+                projectRepository.delete(project);
                 return;
             }
         }
