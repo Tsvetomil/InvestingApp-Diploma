@@ -3,6 +3,7 @@
     <button type="submit" ref="item" class="submit-button" v-on:click="save">Запази</button>
     <Logo/>
     <div contenteditable class="editable-field" id="caption-container"><h1 id=caption-id>{{item.caption}}</h1></div>
+    <div id="loading"></div>
     <div class="image-container">
       <img onclick="image()" class="img-file" :src="`${publicPath}images/${item.imgName}`">
       <label for="image" class="label-for-image">Сменете изображението от тук!</label>
@@ -28,9 +29,10 @@
 
     </div>
     <div class="container-desc">
-
+      <h3>Описание</h3>
       <div contenteditable class="editable-field" id="desc-id"><p>{{item.description}}</p></div>
       <br><br>
+      <h3>Reasons to Invest in the company</h3>
       <div contenteditable class="cr-reasons-to-invest" id="reasons-id">
         <p>{{item.reasonsToInvest}}</p>
       </div>
@@ -69,6 +71,8 @@ export default {
       this.selectedImage = this.$refs.uploadImage.files[0];
     },
     async save(){
+      const loader = document.querySelector("#loading");
+      loader.classList.add("display");
       //save project first
       let caption = document.getElementById("caption-id").innerText;
       let toRaise = document.getElementById("toRaise-id").innerText;
@@ -85,7 +89,7 @@ export default {
         imageName = null;
       }
 
-      await this.axios.post("/api/project/edit/" + this.item.id, {
+      let resp = await this.axios.post("/api/project/edit/" + this.item.id, {
         toRaise: toRaise,
         equity: equity,
         companyName: companyName,
@@ -98,20 +102,24 @@ export default {
       }).catch(e =>
           this.errors.push(e)
       )
-
-      if(imageName){
-        let config = {
-          headers: {
-            'Content-Type': 'multipart/form-data'
+      if(resp.status === 200) {
+        if (imageName) {
+          let config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          };
+          let fd = new FormData();
+          fd.append("imageFile", this.selectedImage);
+          await this.axios.post("/api/project/uploadImage", fd, config).catch(e =>
+              this.errors.push(e)
+          )
+          if(resp.status === 200) {
+            // this.$router.push('/');
           }
-        };
-        let fd = new FormData();
-        fd.append("imageFile", this.selectedImage);
-        await this.axios.post("/api/project/uploadImage", fd, config).catch(e =>
-            this.errors.push(e)
-        )
-        this.$router.push('/');
+        }
       }
+      loader.classList.remove("display")
     }
   }
 }
@@ -195,5 +203,18 @@ h4{
 }
 p{
   white-space: pre-wrap;
+}
+#loading {
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+  border: 20px solid #f3f3f3;
+  border-top: 20px solid #9c41f2;
+  border-radius: 100%;
+  visibility: hidden;
+  animation: spin 1s infinite linear;
+}
+#loading.display {
+  visibility: visible;
 }
 </style>

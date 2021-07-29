@@ -22,8 +22,9 @@
 
     </div>
     <div class="container-desc">
-
+      <h3>Описание</h3>
       <p>{{item.description}}</p>
+      <h3 v-if="item.reasonsToInvest">Причини да инвестирате в компанията</h3>
       <div class="cr-reasons-to-invest">
         <p>{{item.reasonsToInvest}}</p>
       </div>
