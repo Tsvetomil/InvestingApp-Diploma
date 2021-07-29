@@ -7,7 +7,7 @@
       <img onclick="image()" class="img-file" :src="`${publicPath}images/${item.imgName}`">
 <!--      <button type="submit" ref="item" class="change-image" v-on:click="changeImage">Сменете Изображението</button>-->
       <label for="image" class="label-for-image">Сменете изображението от тук!</label>
-      <input type="file" id="image" class="change-image"/>
+      <input type="file" id="image" class="change-image" @change="onFileSelected" ref="uploadImage"/>
     </div>
     <div class="container">
       <table>
@@ -30,10 +30,10 @@
     </div>
     <div class="container-desc">
 
-      <div contenteditable class="editable-field"><p id="desc-id">{{item.description}}</p></div>
+      <div contenteditable class="editable-field" id="desc-id"><p>{{item.description}}</p></div>
       <br><br>
-      <div contenteditable class="cr-reasons-to-invest">
-        <p id="reasons-id">{{item.reasonsToInvest}}</p>
+      <div contenteditable class="cr-reasons-to-invest" id="reasons-id">
+        <p>{{item.reasonsToInvest}}</p>
       </div>
     </div>
   </div>
@@ -51,7 +51,7 @@ export default {
   name:"ItemView",
   data()
   {
-    return{item: undefined, publicPath: process.env.BASE_URL}
+    return{item: undefined, publicPath: process.env.BASE_URL, selectedImage: null}
   },
   mounted()
   {
@@ -66,7 +66,10 @@ export default {
         })
   },
   methods: {
-    save(){
+    onFileSelected() {
+      this.selectedImage = this.$refs.uploadImage.files[0];
+    },
+    async save(){
       //save project first
       let caption = document.getElementById("caption-id").innerText;
       let toRaise = document.getElementById("toRaise-id").innerText;
@@ -76,9 +79,14 @@ export default {
       let website = document.getElementById("website-id").innerText;
       let description = document.getElementById("desc-id").innerText;
       let reasonsToInvest = document.getElementById("reasons-id").innerText;
-      // let imageName = document.getElementById("desc-id").innerText;
+      let imageName = document.getElementById("image");
+      if(imageName.value) {
+        imageName = document.getElementById("image").files[0].name;
+      } else{
+        imageName = null;
+      }
 
-      this.axios.post("/api/project/add", {
+      await this.axios.post("/api/project/edit/" + this.item.id, {
         toRaise: toRaise,
         equity: equity,
         companyName: companyName,
@@ -86,20 +94,25 @@ export default {
         website: website,
         description: description,
         caption: caption,
-        // imgName: imgName,
+        imgName: imageName,
         reasonsToInvest: reasonsToInvest,
       }).catch(e =>
           this.errors.push(e)
       )
 
-
-      // let img = document.getElementById("image");
-      // if(img.value){
-      //
-      // }
-    },
-    changeImage(){
-
+      if(imageName){
+        let config = {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        };
+        let fd = new FormData();
+        fd.append("imageFile", this.selectedImage);
+        await this.axios.post("/api/project/uploadImage", fd, config).catch(e =>
+            this.errors.push(e)
+        )
+        this.$router.push('/');
+      }
     }
   }
 }
@@ -180,5 +193,8 @@ h4{
   margin: auto;
   width: 60%;
   padding: 10px;
+}
+p{
+  white-space: pre-wrap;
 }
 </style>

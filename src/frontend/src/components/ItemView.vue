@@ -92,4 +92,7 @@ img {
   width: 50%;
   height: auto;
 }
+p{
+  white-space: pre-wrap;
+}
 </style>

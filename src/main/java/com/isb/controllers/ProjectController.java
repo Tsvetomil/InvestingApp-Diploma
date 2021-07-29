@@ -8,6 +8,7 @@ import com.isb.repository.ProjectRepository;
 import com.isb.rest.utils.Response;
 import com.isb.utils.UserUtils;
 import com.isb.utils.ImageUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -85,8 +86,20 @@ public class ProjectController implements IController{
     }
 
     @PostMapping("/edit/{id}")
-    public Project edit(@RequestBody Project project, @PathVariable(value="id") long id, HttpSession session){
-        return null;
+    public Response edit(@RequestBody Project projectUI, @PathVariable(value="id") long id, HttpSession session) throws UserException {
+        Optional<Project> projectOpt = projectRepository.findById(id);
+        UserDTO user = UserUtils.getUser(session);
+        if(projectOpt.isPresent()){
+            Project project = projectOpt.get();
+            if(project.getUserID() != user.getId()){
+                return new Response(HttpStatus.UNAUTHORIZED.value());
+            }
+            project.merge(projectUI);
+            project.setId(id);
+            project.setUserID(user.getId());
+            projectRepository.save(project);
+        }
+        return new Response(HttpStatus.OK.value());
     }
 
 }
