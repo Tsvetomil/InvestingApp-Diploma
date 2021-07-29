@@ -1,17 +1,40 @@
 <template>
   <div class="main">
-    <NavBar/>
-    <ItemList/>
+    <div class="navbar">
+      <Logo/>
+      <div class="login">
+        <a v-show="!authorized" class="login-button" href="/login"> Влизане </a>
+        <a v-show="authorized" class="login-button" href="#" @click="logout"> Излизане от профила </a>
+        <router-view></router-view>
+      </div>
+      <div class="menu">
+        <div class="menu-item menu-item-left">
+          <div class="menu-text">
+            <a href="/raise-capital">
+              <p class="home-text" id="get-financing"> Вземете финансиране </p>
+            </a>
+            <router-view></router-view>
+          </div>
+        </div>
+        <div v-show="authorized" class="menu-item menu-item-right">
+          <div class="menu-text">
+            <a href="/my-ads">
+              <p class="home-text" id="ad"> Вашите обяви </p>
+            </a>
+            <router-view></router-view>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import ItemList from './ItemList.vue'
+import Logo from "@/components/Logo";
 import axios from "axios";
-import NavBar from './NavBar.vue';
 export default {
   components: {
-    ItemList,NavBar
+    Logo
   },
   data() {
     return {
@@ -19,7 +42,7 @@ export default {
       authorized: false
     }
   },
-  name: 'Home',
+  name: 'NavBar',
   props: {
     msg: String
   },

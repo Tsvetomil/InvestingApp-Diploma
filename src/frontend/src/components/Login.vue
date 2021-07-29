@@ -1,30 +1,33 @@
 <template>
-  <div class="container">
-    <Logo/>
-    <div class="text-overlay">
-      <h2>Здравейте отново!</h2>
-      <p>Моля влезте за да продължите.</p>
-    </div>
-    <div id="loading"></div>
-    <div class="form-overlay">
-      <div class="sign-in-form">
-        <form class="sign-in">
-          <input type="email" id="email" placeholder="Email" required/>
-          <input @keyup.enter="login" type="password" id="pass" placeholder="Password" required/>
-          <p v-if="errors.length">
-            Имейла или паролата е неправилна
-          </p>
-          <a href="#" class="f-pass-b">Забравена парола</a>
-
-          <button type="button" v-on:click="login">Влизане</button>
-        </form>
+  <div class="main">
+    <NavBar/>
+    <div class="container">
+      <Logo/>
+      <div class="text-overlay">
+        <h2>Здравейте отново!</h2>
+        <p>Моля влезте за да продължите.</p>
       </div>
+      <div id="loading"></div>
+      <div class="form-overlay">
+        <div class="sign-in-form">
+          <form class="sign-in">
+            <input type="email" id="email" placeholder="Email" required/>
+            <input @keyup.enter="login" type="password" id="pass" placeholder="Password" required/>
+            <p v-if="errors.length">
+              Имейла или паролата е неправилна
+            </p>
+            <a href="#" class="f-pass-b">Забравена парола</a>
 
-      <div class="sign-up-overlay">
-        <h3> Нямате акаунт ?</h3>
-        <router-link to="/register">
-          <button>Регистриране</button>
-        </router-link>
+            <button type="button" v-on:click="login">Влизане</button>
+          </form>
+        </div>
+
+        <div class="sign-up-overlay">
+          <h3> Нямате акаунт ?</h3>
+          <router-link to="/register">
+            <button>Регистриране</button>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -34,10 +37,11 @@ import Vue from 'vue';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Logo from "@/components/Logo";
+import NavBar from "@/components/NavBar";
 Vue.use(VueAxios, axios)
 
 export default {
-  components: {Logo},
+  components: {NavBar, Logo},
   data() {
     return {
       errors: []

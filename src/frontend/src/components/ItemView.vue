@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBar/>
     <Logo/>
     <h1>{{item.caption}}</h1>
     <img onclick="image()" class="img-file" :src="`${publicPath}images/${item.imgName}`">
@@ -36,9 +37,11 @@ import Vue from 'vue';
 import VueAxios from "vue-axios";
 import axios from "axios";
 import Logo from "@/components/Logo";
+import NavBar from "@/components/NavBar";
 Vue.use(VueAxios, axios)
 export default {
   components: {
+    NavBar,
     Logo
   },
   name:"ItemView",

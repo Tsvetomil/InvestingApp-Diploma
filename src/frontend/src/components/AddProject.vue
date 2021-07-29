@@ -1,45 +1,48 @@
 <template>
-  <div class="container">
-    <Logo/>
-    <div class="text-overlay">
-      <h2>Намери си инвеститор!</h2>
-      <p>Попълнете формата за да започнете</p>
-    </div>
+  <div class="main">
+    <NavBar/>
+    <div class="container">
+      <Logo/>
+      <div class="text-overlay">
+        <h2>Намери си инвеститор!</h2>
+        <p>Попълнете формата за да започнете</p>
+      </div>
 
-    <div class="form-overlay">
-      <div class="sign-in-form">
-        <form id="add-project-form" class="sign-in">
-          <div class="inputs-row">
-            <input type="text" id="fname" placeholder="Собствено име*" required/>
-            <input type="text" id="lname" placeholder="Фамилно име*" required/>
-          </div>
-          <div class="inputs-row">
-            <input type="text" id="companyName" placeholder="Име на компанията*" required/>
-            <input type="email" id="email" placeholder="Имейл*" required/>
-          </div>
-          <div class="inputs-row">
-            <input type="number" id="phone" placeholder="Телефонен номер*" required/>
-            <input type="text" id="website" placeholder="Уебсайт"/>
-          </div>
-          <input type="text" id="address" placeholder="Aдрес*" required/>
-          <input type="text" id="caption" placeholder="Заглавие*" required/>
-          <input type="number" id="toRaise" placeholder="Колко средства търсите да наберете?*(в лева)" required/>
-          <input type="number" id="evaluationPrice" placeholder="На колко се оценява компанията ви в момента?*(в лева)" required/>
-          <input type="number" id="equity" placeholder="Какъв % дял сте готови да дадете на инвеститора?*" required/>
-          <label for="desc">Описание</label>
-          <textarea id="desc" rows="10" cols="50">
-          </textarea>
-          <label for="reasonsToInvest">Защо някой да инвестира във вашата компания?</label>
-          <textarea id="reasonsToInvest" rows="4" cols="50">
-          </textarea>
-          <label for="file-input"> Снимка за миниатюра на обявата</label>
-          <input type="file" accept="image/*" @change="onFileSelected" id="file-input" ref="uploadImage" required>
-          <div id="loading"></div>
-          <p class="error-msg" v-if="errors.length">
-            {{this.errors[0].response.data.msg}}
-          </p>
-        </form>
-        <button type="submit" class="submit-button" v-on:click="submit()">Изпращане</button>
+      <div class="form-overlay">
+        <div class="sign-in-form">
+          <form id="add-project-form" class="sign-in">
+            <div class="inputs-row">
+              <input type="text" id="fname" placeholder="Собствено име*" required/>
+              <input type="text" id="lname" placeholder="Фамилно име*" required/>
+            </div>
+            <div class="inputs-row">
+              <input type="text" id="companyName" placeholder="Име на компанията*" required/>
+              <input type="email" id="email" placeholder="Имейл*" required/>
+            </div>
+            <div class="inputs-row">
+              <input type="number" id="phone" placeholder="Телефонен номер*" required/>
+              <input type="text" id="website" placeholder="Уебсайт"/>
+            </div>
+            <input type="text" id="address" placeholder="Aдрес*" required/>
+            <input type="text" id="caption" placeholder="Заглавие*" required/>
+            <input type="number" id="toRaise" placeholder="Колко средства търсите да наберете?*(в лева)" required/>
+            <input type="number" id="evaluationPrice" placeholder="На колко се оценява компанията ви в момента?*(в лева)" required/>
+            <input type="number" id="equity" placeholder="Какъв % дял сте готови да дадете на инвеститора?*" required/>
+            <label for="desc">Описание</label>
+            <textarea id="desc" rows="10" cols="50">
+            </textarea>
+            <label for="reasonsToInvest">Защо някой да инвестира във вашата компания?</label>
+            <textarea id="reasonsToInvest" rows="4" cols="50">
+            </textarea>
+            <label for="file-input"> Снимка за миниатюра на обявата</label>
+            <input type="file" accept="image/*" @change="onFileSelected" id="file-input" ref="uploadImage" required>
+            <div id="loading"></div>
+            <p class="error-msg" v-if="errors.length">
+              {{this.errors[0].response.data.msg}}
+            </p>
+          </form>
+          <button type="submit" class="submit-button" v-on:click="submit()">Изпращане</button>
+        </div>
       </div>
     </div>
   </div>
@@ -49,10 +52,11 @@ import Vue from 'vue';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Logo from "@/components/Logo";
+import NavBar from "@/components/NavBar";
 Vue.use(VueAxios, axios)
 
 export default {
-  components: {Logo},
+  components: {NavBar, Logo},
   data() {
     return {
       selectedImage: null,

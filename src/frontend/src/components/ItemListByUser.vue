@@ -24,7 +24,7 @@ import Spinner from './Spinner.vue';
 Vue.use(VueAxios, axios)
 export default {
 
-  name:"ItemList",
+  name:"ItemListByUser",
   components: {Spinner},
   data()
   {
