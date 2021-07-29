@@ -5,15 +5,14 @@
     <div contenteditable class="editable-field" id="caption-container"><h1 id=caption-id>{{item.caption}}</h1></div>
     <div class="image-container">
       <img onclick="image()" class="img-file" :src="`${publicPath}images/${item.imgName}`">
-<!--      <button type="submit" ref="item" class="change-image" v-on:click="changeImage">Сменете Изображението</button>-->
       <label for="image" class="label-for-image">Сменете изображението от тук!</label>
-      <input type="file" id="image" class="change-image" @change="onFileSelected" ref="uploadImage"/>
+      <input type="file" id="image" class="change-image" accept="image/*" @change="onFileSelected" ref="uploadImage"/>
     </div>
     <div class="container">
       <table>
         <tr>
-          <th><div contenteditable class="editable-field"><p id="toRaise-id">{{item.toRaise}}</p></div> лв в замяна на <span style="color:#ca4949"><div contenteditable class="editable-field"><p id="equity-id">{{item.equity}}</p></div>% от компанията</span></th>
-          <th><div contenteditable class="editable-field"><p id="phone-id">{{item.phone}}</p></div></th>
+          <th><div contenteditable class="editable-field" onKeypress="if(event.keyCode < 48 || event.keyCode > 57){return false;}"><p id="toRaise-id">{{item.toRaise}}</p></div> лв в замяна на <span style="color:#ca4949"><div contenteditable class="editable-field" onKeypress="if(event.keyCode < 48 || event.keyCode > 57){return false;}"><p id="equity-id">{{item.equity}}</p></div>% от компанията</span></th>
+          <th><div contenteditable class="editable-field" onKeypress="if(event.keyCode < 48 || event.keyCode > 57){return false;}"><p id="phone-id">{{item.phone}}</p></div></th>
           <th><div contenteditable class="editable-field"><p id="companyName-id">{{item.companyName}}</p></div></th>
           <th><i><div contenteditable class="editable-field"><p id="website-id">{{item.website}}</p></div></i></th>
         </tr>

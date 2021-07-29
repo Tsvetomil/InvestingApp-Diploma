@@ -71,6 +71,9 @@ public class ProjectController implements IController{
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/uploadImage")
     public Response uploadImage(@RequestParam("imageFile") MultipartFile imageFile){
+        if(!imageFile.getContentType().toLowerCase().contains("image")){
+            return new Response(HttpStatus.BAD_REQUEST.value(), "Please upload a image");
+        }
         String uniqueImgName = ImageUtils.getUniqueImgName(imageFile.getOriginalFilename());
         try {
             ImageUtils.saveImage(imageFile, uniqueImgName);
