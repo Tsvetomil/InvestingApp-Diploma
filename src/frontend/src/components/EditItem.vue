@@ -61,7 +61,7 @@ export default {
   },
   mounted()
   {
-    this.showModal()
+
     let url_string = window.location.href;
     let url = new URL(url_string);
     let id = url.searchParams.get("id")
@@ -70,8 +70,8 @@ export default {
         .then( (resp) => {
           this.item = resp.data;
           this.ready = true
-          this.showModal()
         })
+    this.showModal()
   },
   methods: {
     showModal(){
