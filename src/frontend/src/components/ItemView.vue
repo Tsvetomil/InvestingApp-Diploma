@@ -11,12 +11,14 @@
           <th>{{item.phone}}</th>
           <th>{{item.companyName}}</th>
           <th><a href="javascript:void(0)" v-on:click="this.testFunc"><i>{{item.website}}</i></a></th>
+          <th>{{item.city}}</th>
         </tr>
         <tr>
           <td><h4>Средства които се търсят</h4></td>
           <td><h4>Телефонен номер</h4></td>
           <td><h4>Име на компанията</h4></td>
           <td><h4>Уебсайт на компанията</h4></td>
+          <td><h4>Град</h4></td>
         </tr>
       </table>
 

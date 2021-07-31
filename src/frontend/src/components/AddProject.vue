@@ -23,6 +23,7 @@
               <input type="number" id="phone" placeholder="Телефонен номер*" required/>
               <input type="text" id="website" placeholder="Уебсайт"/>
             </div>
+            <input type="text" id="city" placeholder="Град"/>
             <input type="text" id="address" placeholder="Aдрес*" required/>
             <input type="text" id="caption" placeholder="Заглавие*" required/>
             <input type="number" id="toRaise" placeholder="Колко средства търсите да наберете?*(в лева)" required/>
@@ -89,6 +90,7 @@ export default {
       let imgName = document.getElementById("file-input").files[0].name;
       let caption = document.getElementById("caption").value;
       let reasonsToInvest = document.getElementById("reasonsToInvest").value;
+      let city = document.getElementById("city").value;
 
       let resp = await this.axios.post("/api/project/add", {
         email: email,
@@ -105,6 +107,7 @@ export default {
         caption: caption,
         imgName: imgName,
         reasonsToInvest: reasonsToInvest,
+        city: city
       }).catch(e =>
           this.errors.push(e)
       )

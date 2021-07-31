@@ -17,13 +17,14 @@
           <th><div contenteditable class="editable-field" onKeypress="if(event.keyCode < 48 || event.keyCode > 57){return false;}"><p id="phone-id">{{item.phone}}</p></div></th>
           <th><div contenteditable class="editable-field"><p id="companyName-id">{{item.companyName}}</p></div></th>
           <th><i><div contenteditable class="editable-field"><p id="website-id">{{item.website}}</p></div></i></th>
+          <th><i><div contenteditable class="editable-field"><p id="city-id">{{item.city}}</p></div></i></th>
         </tr>
         <tr>
           <td><h4>Средства които се търсят</h4></td>
           <td><h4>Телефонен номер</h4></td>
           <td><h4>Име на компанията</h4></td>
           <td><h4>Уебсайт на компанията</h4></td>
-          <!--          <td>country</td>-->
+          <td><h4>Град</h4></td>
         </tr>
       </table>
 
@@ -67,6 +68,18 @@ export default {
           this.item = resp.data;
           console.warn(resp.data)
         })
+    setTimeout(() => {  this.$modal.show('dialog', {
+      title: 'Всички полета в пунктираните линии могат да се редактират',
+      buttons: [
+        {
+          title: 'Добре',
+          handler: () => {
+            this.$modal.hide('dialog')
+          }
+        }
+      ]
+    })}, 300);
+
   },
   methods: {
     onFileSelected() {
@@ -85,6 +98,7 @@ export default {
       let description = document.getElementById("desc-id").innerText;
       let reasonsToInvest = document.getElementById("reasons-id").innerText;
       let imageName = document.getElementById("image");
+      let city = document.getElementById("city-id").innerText;
       if(imageName.value) {
         imageName = document.getElementById("image").files[0].name;
       } else{
@@ -101,6 +115,7 @@ export default {
         caption: caption,
         imgName: imageName,
         reasonsToInvest: reasonsToInvest,
+        city: city
       }).catch(e =>
           this.errors.push(e)
       )
