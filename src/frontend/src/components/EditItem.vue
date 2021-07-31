@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-dialog/>
     <button type="submit" ref="item" class="submit-button" v-on:click="save">Запази</button>
     <Logo/>
     <div contenteditable class="editable-field" id="caption-container"><h1 id=caption-id>{{item.caption}}</h1></div>
@@ -44,7 +45,8 @@ import Vue from 'vue';
 import VueAxios from "vue-axios";
 import axios from "axios";
 import Logo from "@/components/Logo";
-Vue.use(VueAxios, axios)
+import VModal from 'vue-js-modal'
+Vue.use(VModal, VueAxios, axios)
 export default {
   components: {
     Logo
@@ -115,11 +117,38 @@ export default {
               this.errors.push(e)
           )
           if(resp.status === 200) {
-            // this.$router.push('/');
+            this.redirect()
           }
+        } else{
+          loader.classList.remove("display")
+          this.redirect();
         }
       }
-      loader.classList.remove("display")
+      this.$modal.show('dialog', {
+        title: 'Не успяхме да запазим промените ви!',
+        text: 'Моля опитайте отново!',
+        buttons: [
+          {
+            title: 'Добре',
+            handler: () => {
+              this.$modal.hide('dialog')
+            }
+          }
+        ]
+      })
+    },
+    redirect() {
+      this.$modal.show('dialog', {
+        title: 'Промените ви бяха успешно запазени',
+        buttons: [
+          {
+            title: 'Добре',
+            handler: () => {
+              this.$router.push("/my-ads")
+            }
+          }
+        ]
+      })
     }
   }
 }

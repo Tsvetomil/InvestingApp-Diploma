@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-dialog/>
     <h1>Вашите активни обяви</h1>
     <table v-if="isDataLoaded()">
       <div class="row" v-for="i in Math.ceil(list.length / itemsInRow)" v-bind:key="i">
@@ -9,7 +10,7 @@
           <img class="img-file" :src="`${publicPath}images/${item.imgName}`">
           <td class="pr-toRaise">Търсят се: {{ item.toRaise }} лв</td>
           <button type="submit" ref="item" class="edit-button" v-on:click="editItem(item)">Редактирай</button>
-          <button type="submit" ref="item" class="submit-button" v-on:click="deleteItem(item)">Изтрий</button>
+          <button type="submit" ref="item" class="submit-button" v-on:click="showModal(item)">Изтрий</button>
         </tr>
       </div>
     </table>
@@ -21,7 +22,8 @@ import Vue from 'vue';
 import VueAxios from "vue-axios";
 import axios from "axios";
 import Spinner from './Spinner.vue';
-Vue.use(VueAxios, axios)
+import VModal from 'vue-js-modal'
+Vue.use(VModal, { dialog: true }, VueAxios, axios)
 export default {
 
   name:"ItemListByUser",
@@ -50,6 +52,26 @@ export default {
     },
     editItem(item) {
       this.$router.push('/project/edit?id=' + item.id);
+    },
+    showModal(item) {
+      this.$modal.show('dialog', {
+        title: 'Сигурни ли сте че искате да продължите',
+        text: 'Промените са необратими',
+        buttons: [
+          {
+            title: 'НЕ',
+            handler: () => {
+              this.$modal.hide('dialog')
+            }
+          },
+          {
+            title: 'Изтриване',
+            handler: () => {
+              this.deleteItem(item)
+            }
+          }
+        ]
+      })
     }
   }
 }
