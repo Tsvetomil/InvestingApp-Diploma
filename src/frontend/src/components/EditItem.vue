@@ -1,42 +1,44 @@
 <template>
   <div>
     <v-dialog/>
-    <button type="submit" ref="item" class="submit-button" v-on:click="save">Запази</button>
-    <Logo/>
-    <div contenteditable class="editable-field" id="caption-container"><h1 id=caption-id>{{item.caption}}</h1></div>
-    <div id="loading"></div>
-    <div class="image-container">
-      <img onclick="image()" class="img-file" :src="`${publicPath}images/${item.imgName}`">
-      <label for="image" class="label-for-image">Сменете изображението от тук!</label>
-      <input type="file" id="image" class="change-image" accept="image/*" @change="onFileSelected" ref="uploadImage"/>
-    </div>
-    <div class="container">
-      <table>
-        <tr>
-          <th><div contenteditable class="editable-field" onKeypress="if(event.keyCode < 48 || event.keyCode > 57){return false;}"><p id="toRaise-id">{{item.toRaise}}</p></div> лв в замяна на <span style="color:#ca4949"><div contenteditable class="editable-field" onKeypress="if(event.keyCode < 48 || event.keyCode > 57){return false;}"><p id="equity-id">{{item.equity}}</p></div>% от компанията</span></th>
-          <th><div contenteditable class="editable-field" onKeypress="if(event.keyCode < 48 || event.keyCode > 57){return false;}"><p id="phone-id">{{item.phone}}</p></div></th>
-          <th><div contenteditable class="editable-field"><p id="companyName-id">{{item.companyName}}</p></div></th>
-          <th><i><div contenteditable class="editable-field"><p id="website-id">{{item.website}}</p></div></i></th>
-          <th><i><div contenteditable class="editable-field"><p id="city-id">{{item.city}}</p></div></i></th>
-        </tr>
-        <tr>
-          <td><h4>Средства които се търсят</h4></td>
-          <td><h4>Телефонен номер</h4></td>
-          <td><h4>Име на компанията</h4></td>
-          <td><h4>Уебсайт на компанията</h4></td>
-          <td><h4>Град</h4></td>
-        </tr>
-      </table>
+    <div v-if="ready">
+      <button type="submit" ref="item" class="submit-button" v-on:click="save">Запази</button>
+      <Logo/>
+      <div contenteditable class="editable-field" id="caption-container"><h1 id=caption-id>{{item.caption}}</h1></div>
+      <div id="loading"></div>
+      <div class="image-container">
+        <img onclick="image()" class="img-file" :src="`${publicPath}images/${item.imgName}`">
+        <label for="image" class="label-for-image">Сменете изображението от тук!</label>
+        <input type="file" id="image" class="change-image" accept="image/*" @change="onFileSelected" ref="uploadImage"/>
+      </div>
+      <div class="container">
+        <table>
+          <tr>
+            <th><div contenteditable class="editable-field" onKeypress="if(event.keyCode < 48 || event.keyCode > 57){return false;}"><p id="toRaise-id">{{item.toRaise}}</p></div> лв в замяна на <span style="color:#ca4949"><div contenteditable class="editable-field" onKeypress="if(event.keyCode < 48 || event.keyCode > 57){return false;}"><p id="equity-id">{{item.equity}}</p></div>% от компанията</span></th>
+            <th><div contenteditable class="editable-field" onKeypress="if(event.keyCode < 48 || event.keyCode > 57){return false;}"><p id="phone-id">{{item.phone}}</p></div></th>
+            <th><div contenteditable class="editable-field"><p id="companyName-id">{{item.companyName}}</p></div></th>
+            <th><i><div contenteditable class="editable-field"><p id="website-id">{{item.website}}</p></div></i></th>
+            <th><i><div contenteditable class="editable-field"><p id="city-id">{{item.city}}</p></div></i></th>
+          </tr>
+          <tr>
+            <td><h4>Средства които се търсят</h4></td>
+            <td><h4>Телефонен номер</h4></td>
+            <td><h4>Име на компанията</h4></td>
+            <td><h4>Уебсайт на компанията</h4></td>
+            <td><h4>Град</h4></td>
+          </tr>
+        </table>
 
 
-    </div>
-    <div class="container-desc">
-      <h3>Описание</h3>
-      <div contenteditable class="editable-field" id="desc-id"><p>{{item.description}}</p></div>
-      <br><br>
-      <h3>Reasons to Invest in the company</h3>
-      <div contenteditable class="cr-reasons-to-invest" id="reasons-id">
-        <p>{{item.reasonsToInvest}}</p>
+      </div>
+      <div class="container-desc">
+        <h3>Описание</h3>
+        <div contenteditable class="editable-field" id="desc-id"><p>{{item.description}}</p></div>
+        <br><br>
+        <h3>Reasons to Invest in the company</h3>
+        <div contenteditable class="cr-reasons-to-invest" id="reasons-id">
+          <p>{{item.reasonsToInvest}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -55,10 +57,11 @@ export default {
   name:"ItemView",
   data()
   {
-    return{item: undefined, publicPath: process.env.BASE_URL, selectedImage: null}
+    return{item: undefined, publicPath: process.env.BASE_URL, selectedImage: null, ready: false}
   },
   mounted()
   {
+    this.showModal()
     let url_string = window.location.href;
     let url = new URL(url_string);
     let id = url.searchParams.get("id")
@@ -66,22 +69,24 @@ export default {
     Vue.axios.get('/api/project/' + id)
         .then( (resp) => {
           this.item = resp.data;
-          console.warn(resp.data)
+          this.ready = true
+          this.showModal()
         })
-    setTimeout(() => {  this.$modal.show('dialog', {
-      title: 'Всички полета в пунктираните линии могат да се редактират',
-      buttons: [
-        {
-          title: 'Добре',
-          handler: () => {
-            this.$modal.hide('dialog')
-          }
-        }
-      ]
-    })}, 300);
-
   },
   methods: {
+    showModal(){
+      this.$modal.show('dialog', {
+        title: 'Всички полета в пунктираните линии могат да се редактират',
+        buttons: [
+          {
+            title: 'Добре',
+            handler: () => {
+              this.$modal.hide('dialog')
+            }
+          }
+        ]
+      })
+    },
     onFileSelected() {
       this.selectedImage = this.$refs.uploadImage.files[0];
     },
