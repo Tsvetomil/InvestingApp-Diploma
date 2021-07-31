@@ -80,7 +80,7 @@ export default {
 </script>
 <style scoped>
 #container{
-  background-color: #e4f1d7;
+  background-color: #e7e7e7;
   margin-top: 100px;
   height: 100%;
   border: 3px solid #000000;
@@ -113,7 +113,7 @@ textarea:focus, input:focus{
   outline: 0;
 }
 button{
-  width: 46%;
+  width: 30%;
   border-radius: 20px;
   border: 1px solid #009345;
   background-color: #009345;
