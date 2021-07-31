@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="ready">
     <NavBar/>
     <Logo/>
     <h1>{{item.caption}}</h1>
@@ -32,6 +32,7 @@
         <p>{{item.reasonsToInvest}}</p>
       </div>
     </div>
+    <CommentSection/>
   </div>
 </template>
 <script>
@@ -40,16 +41,18 @@ import VueAxios from "vue-axios";
 import axios from "axios";
 import Logo from "@/components/Logo";
 import NavBar from "@/components/NavBar";
+import CommentSection from "@/components/CommentSection";
 Vue.use(VueAxios, axios)
 export default {
   components: {
+    CommentSection,
     NavBar,
     Logo
   },
   name:"ItemView",
   data()
   {
-    return{item: undefined, publicPath: process.env.BASE_URL}
+    return{item: undefined, publicPath: process.env.BASE_URL, ready: false}
   },
   mounted()
   {
@@ -60,6 +63,7 @@ export default {
     Vue.axios.get('/api/project/' + id)
         .then( (resp) => {
           this.item = resp.data;
+          this.ready = true
           console.warn(resp.data)
         })
   },

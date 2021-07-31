@@ -8,7 +8,7 @@
           <td class="pr-companyName"> {{ item.companyName }}</td>
           <td class="pr-caption">{{ item.caption }}</td>
           <img class="img-file" :src="`${publicPath}images/${item.imgName}`">
-          <td class="pr-toRaise">Търсят се: {{ item.toRaise }} лв</td>
+          <td class="pr-toRaise">Търси се инвестиция от: {{ item.toRaise }} лв</td>
           <button type="submit" ref="item" class="edit-button" v-on:click="editItem(item)">Редактирай</button>
           <button type="submit" ref="item" class="submit-button" v-on:click="showModal(item)">Изтрий</button>
         </tr>
