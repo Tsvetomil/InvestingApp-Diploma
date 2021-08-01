@@ -21,7 +21,7 @@
             <button type="submit" class="submit-button" v-on:click="addSubComment(comment)">Добавяне</button>
           </div>
           <div id="replies">
-            <div id="reply-comment" v-for="reply in comment.replies">
+            <div id="reply-comment" v-for="reply in comment.replies" v-bind:key="reply.id">
               <p class="reply-owner">{{reply.owner}}</p>
               <span id="reply-date">{{reply.timestamp}}</span>
               <p class="reply-msg">{{reply.message}}</p>
@@ -175,7 +175,7 @@ button{
   margin-top: 10%;
 }
 .msg{
-  margin-top: -2%;
+  margin-top: -1%;
   text-align: left;
   margin-left: 7%;
   margin-right: 20%
@@ -185,6 +185,13 @@ button{
   display: block;
   top: 5%;
   left: 80%;
+  font-style: italic;
+}
+#reply-date{
+  position: relative;
+  /*display: ;*/
+  left: 39%;
+  top: -40px;
   font-style: italic;
 }
 .reply-msg{
