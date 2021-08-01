@@ -8,9 +8,26 @@
       <button type="submit" class="submit-button" v-on:click="addComment()">Добави Коментар</button>
       <div id="comments">
         <div id="comment" v-for="comment in comments" v-bind:key="comment.id">
-          <p id="owner">{{comment.owner}}</p>
-          <span id="timestamp">{{comment.timestamp}}</span>
-          <p id="msg"> {{ comment.message }}</p>
+          <p class="owner">{{comment.owner}}</p>
+          <span class="timestamp">{{comment.timestamp}}</span>
+          <p class="msg"> {{ comment.message }}</p>
+          <div id="reply-div">
+            <a href="javascript:void(0)" @click="setID(comment)">
+              <p class="home-text" id="reply"> отговор </p>
+            </a>
+          </div>
+          <div id="reply-field-div" v-if="fire(comment)">
+            <textarea rows="2" id="reply-field" placeholder="Отговор"></textarea>
+            <button type="submit" class="submit-button" v-on:click="addSubComment(comment)">Добавяне</button>
+          </div>
+          <div id="replies">
+            <div id="reply-comment" v-for="reply in comment.replies">
+              <p class="reply-owner">{{reply.owner}}</p>
+              <span id="reply-date">{{reply.timestamp}}</span>
+              <p class="reply-msg">{{reply.message}}</p>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -23,9 +40,8 @@
 <script>
 import axios from "axios";
 import Vue from "vue";
-import VModal from 'vue-js-modal'
 import VueAxios from "vue-axios";
-Vue.use(VModal, VueAxios, axios)
+Vue.use(VueAxios, axios)
 
 export default {
   name: "CommentSection",
@@ -33,7 +49,8 @@ export default {
     return {
       authorized: false,
       comments: null,
-      projectID: null
+      projectID: null,
+      replyFired: null
     }
   },
   mounted() {
@@ -73,6 +90,30 @@ export default {
         await this.loadComments()
         this.$forceUpdate()
       }
+    },
+    async addSubComment(comment){
+      if(!this.authorized){
+        return;
+      }
+      let msg = document.getElementById("reply-field").value;
+      if(msg) {
+        await this.axios.post("/api/comment/add/reply/" + comment.id, {
+          message: msg
+        }).catch(e =>
+            this.errors.push(e)
+        )
+        document.getElementById("reply-field").value = "";
+        this.replyFired = -1;
+
+        await this.loadComments()
+        this.$forceUpdate()
+      }
+    },
+    setID(comment) {
+      this.replyFired = comment.id
+    },
+    fire(comment) {
+      return this.replyFired === comment.id;
     }
   }
 
@@ -83,7 +124,6 @@ export default {
   background-color: #e7e7e7;
   margin-top: 100px;
   height: 100%;
-  border: 3px solid #000000;
   padding: 10px;
   margin-left: 21%;
   margin-right: 21%;
@@ -91,7 +131,6 @@ export default {
 #comments-container{
   background-color: white;
   /*margin-top: 100px;*/
-  border: 3px solid #000000;
   padding: 10px;
   margin-left: 10%;
   margin-right: 10%;
@@ -125,7 +164,7 @@ button{
   text-transform: uppercase;
   cursor: pointer;
 }
-#owner{
+.owner{
   position: relative;
   /*display: block;*/
   right: 40%;
@@ -135,18 +174,30 @@ button{
   display: block;
   margin-top: 10%;
 }
-#msg{
+.msg{
   margin-top: -2%;
   text-align: left;
   margin-left: 7%;
   margin-right: 20%
 }
-#timestamp{
+.timestamp{
   position: absolute;
   display: block;
   top: 5%;
   left: 80%;
   font-style: italic;
+}
+.reply-msg{
+  margin-top: -4%;
+  text-align: left;
+  margin-left: 18%;
+  margin-right: 20%
+}
+.reply-owner{
+  position: relative;
+  /*display: block;*/
+  right: 30%;
+  font-weight: bold;
 }
 #comment{
   position: relative;
@@ -159,5 +210,13 @@ button{
 }
 div{
   word-wrap: break-word
+}
+#reply-div{
+  position: relative;
+  margin-right: 80%;
+}
+#reply-field{
+  position: relative;
+  margin-right: 20%
 }
 </style>

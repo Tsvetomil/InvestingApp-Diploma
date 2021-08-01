@@ -4,6 +4,7 @@ import com.isb.dto.CommentDTO;
 import com.isb.dto.UserDTO;
 import com.isb.exception.UserException;
 import com.isb.model.Comment;
+import com.isb.model.SubComment;
 import com.isb.repository.CommentRepository;
 import com.isb.rest.utils.Response;
 import com.isb.utils.UserUtils;
@@ -47,5 +48,24 @@ public class CommentController implements IController{
         }
 
         return new Response(HttpStatus.OK.value(), result);
+    }
+
+    @PostMapping("/add/reply/{id}")
+    public Response addReply(@RequestBody SubComment reply, @PathVariable(value="id") long parentID, HttpSession session) throws UserException {
+        UserDTO user = UserUtils.getUser(session);
+        reply.setUserID(user.getId());
+        reply.setOwner(user.getFirstName() + " " + user.getLastName());
+
+        assert reply.getMessage() != null;
+        assert !reply.getMessage().isEmpty();
+        reply.setTimestamp(LocalDateTime.now());
+
+        Comment one = commentRepository.getById(parentID);
+
+        one.getReplies().add(reply);
+
+        commentRepository.save(one);
+
+        return new Response(HttpStatus.OK.value());
     }
 }

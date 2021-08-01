@@ -16,7 +16,7 @@
             <p v-if="errors.length">
               Имейла или паролата е неправилна
             </p>
-            <a href="#" class="f-pass-b">Забравена парола</a>
+            <a href="#" class="f-pass-b" @click="forgottenPassword">Забравена парола</a>
 
             <button type="button" v-on:click="login">Влизане</button>
           </form>
@@ -73,6 +73,9 @@ export default {
       } else{
         loader.classList.remove("display")
       }
+    },
+    forgottenPassword(){
+      this.$router.push('/reset-password');
     }
   }
 }
