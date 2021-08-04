@@ -3,27 +3,37 @@ package com.isb.controllers;
 import com.isb.dto.UserDTO;
 import com.isb.exception.UserAuthException;
 import com.isb.exception.UserException;
+import com.isb.model.ConfirmationToken;
 import com.isb.model.User;
+import com.isb.repository.ConfTokenRepository;
 import com.isb.repository.UserRepository;
 import com.isb.rest.utils.Response;
 import com.isb.utils.Properties;
 import com.isb.utils.UserUtils;
+import com.isb.utils.mail.MailSender;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Logger;
 
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController implements IController{
 
+    private static final String VERIFICATION_URL = "http://localhost:8080/confirm-account-code=";
+
     @Autowired
     private UserRepository usrRep;
+
+    @Autowired
+    private ConfTokenRepository tokenRep;
 
     Argon2 argon2 = Argon2Factory.create();
 
@@ -63,9 +73,42 @@ public class UserController implements IController{
         return new Response(HttpStatus.UNAUTHORIZED.value());
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "That is an api test";
+    @PostMapping("/forgotten-password")
+    public Response changePassword(@RequestHeader(name="Origin", required=false) final String host, @RequestBody User user){
+        assert user.getEmail() != null;
+        User usr = usrRep.getByEmail(user.getEmail());
+        ConfirmationToken confirmationToken = new ConfirmationToken(usr.getId());
+        try {
+            MailSender.sendEmail(user.getEmail(), "Change password", "Please use the following link to change your password: " + constructURL(host, confirmationToken.getCode()));
+            tokenRep.save(confirmationToken);
+        } catch (MessagingException e) {
+            logger.warn(e);
+            return new Response(HttpStatus.BAD_REQUEST.value());
+        }
+        return new Response(HttpStatus.BAD_REQUEST.value());
+
+    }
+
+    private String constructURL(String host, String code) {
+        return host + "/password-reset?verification-code=" + code;
+    }
+
+    @PostMapping("/change-password")
+    public Response resetPassword(@RequestBody User user, @RequestParam(name = "verification-code") String confirmationToken){
+        ConfirmationToken confirmationTokenByCode = tokenRep.getConfirmationTokenByCode(confirmationToken);
+
+        assert confirmationTokenByCode != null;
+        User userById = usrRep.getUserById(confirmationTokenByCode.getUserID());
+
+        assert userById != null;
+
+        userById.setPassword(argon2.hash(10,65536, 1, user.getPassword()));
+
+        usrRep.save(userById);
+
+        tokenRep.delete(confirmationTokenByCode);
+
+        return new Response(HttpStatus.OK.value());
     }
 
 

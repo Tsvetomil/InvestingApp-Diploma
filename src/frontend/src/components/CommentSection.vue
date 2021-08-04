@@ -186,13 +186,7 @@ button{
   top: 5%;
   left: 80%;
   font-style: italic;
-}
-#reply-date{
-  position: relative;
-  /*display: ;*/
-  left: 39%;
-  top: -40px;
-  font-style: italic;
+  color: #5e733f;
 }
 .reply-msg{
   margin-top: -4%;
@@ -218,12 +212,25 @@ button{
 div{
   word-wrap: break-word
 }
+#reply-date{
+  display: table;
+  margin-top: -15px;
+  margin-left: 80%;
+  top: 100px;
+  font-style: italic;
+  word-wrap:break-word;
+  color: #5e733f;
+}
 #reply-div{
   position: relative;
   margin-right: 80%;
 }
 #reply-field{
   position: relative;
-  margin-right: 20%
+  margin-right: 20%;
+  overflow: hidden;
+}
+p{
+  white-space: pre-wrap;
 }
 </style>

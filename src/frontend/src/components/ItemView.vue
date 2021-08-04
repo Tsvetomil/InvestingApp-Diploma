@@ -96,7 +96,7 @@ h4{
   margin-right: 15%;
 }
 .cr-reasons-to-invest{
-  background-color: #d05858;
+  background-color: #f1e6e6;
 }
 img {
   width: 50%;

@@ -4,13 +4,13 @@
     <div class="container">
       <Logo/>
       <div class="text-overlay">
-        <p>Въведете имейла с който сте се регистрирали.</p>
+        <p>Въведете нова парола!</p>
       </div>
       <div id="loading"></div>
       <div class="form-overlay">
         <div class="sign-in-form">
           <form class="sign-in">
-            <input @keyup.enter="send"  type="email" id="email" placeholder="Email" required/>
+            <input @keyup.enter="send" type="password" id="pass" placeholder="Парола" required/>
             <button type="button" v-on:click="send">Изпращане</button>
           </form>
         </div>
@@ -35,18 +35,21 @@ export default {
   },
   methods: {
     send() {
-      let email = document.getElementById("email").value;
+      let url_string = window.location.href;
+      let url = new URL(url_string);
+      let verification_token = url.searchParams.get("verification-code")
 
-      if (email) {
-        this.axios.post("/api/users/forgotten-password", {
-          email: email,
+      let password = document.getElementById("pass").value;
+
+      if (password) {
+        this.axios.post("/api/users/change-password?verification-code=" + verification_token, {
+          password: password
         }).catch(e =>
             this.errors.push(e)
         )
       }
+      // this.$router.push("/login")
     }
   }
 }
 </script>
-<style>
-</style>

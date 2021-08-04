@@ -9,6 +9,7 @@ import ItemView from './components/ItemView.vue'
 import MyAds from './components/MyAds.vue'
 import EditItem from './components/EditItem.vue'
 import ForgottenPassword from './components/ForgottenPassword.vue'
+import ResetPassword from './components/ResetPassword.vue'
 
 Vue.use(VueRouter);
 
@@ -20,7 +21,8 @@ const routes = [
   {path: '/project', component: ItemView},
   {path: '/my-ads', component: MyAds},
   {path: '/project/edit', component: EditItem},
-  {path: '/reset-password', component: ForgottenPassword}
+  {path: '/reset-password', component: ForgottenPassword},
+  {path: '/password-reset', component: ResetPassword}
 ]
 const router = new VueRouter({
   routes,

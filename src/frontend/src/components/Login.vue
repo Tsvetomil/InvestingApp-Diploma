@@ -11,8 +11,8 @@
       <div class="form-overlay">
         <div class="sign-in-form">
           <form class="sign-in">
-            <input type="email" id="email" placeholder="Email" required/>
-            <input @keyup.enter="login" type="password" id="pass" placeholder="Password" required/>
+            <input type="email" id="email" placeholder="Имейл" required/>
+            <input @keyup.enter="login" type="password" id="pass" placeholder="Парола" required/>
             <p v-if="errors.length">
               Имейла или паролата е неправилна
             </p>
