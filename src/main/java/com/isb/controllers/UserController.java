@@ -85,7 +85,7 @@ public class UserController implements IController{
             logger.warn(e);
             return new Response(HttpStatus.BAD_REQUEST.value());
         }
-        return new Response(HttpStatus.BAD_REQUEST.value());
+        return new Response(HttpStatus.OK.value());
 
     }
 

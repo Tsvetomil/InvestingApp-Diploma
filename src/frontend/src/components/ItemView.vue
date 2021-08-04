@@ -14,7 +14,6 @@
           slot="top-right"
           @click="$modal.hide('img')"
       >
-        Slot for close button
       </div>
       <img :src="`${publicPath}images/${item.imgName}`" />
     </modal>
