@@ -3,7 +3,22 @@
     <NavBar/>
     <Logo/>
     <h1>{{item.caption}}</h1>
-    <img onclick="image()" class="img-file" :src="`${publicPath}images/${item.imgName}`">
+    <modal
+        name="img"
+        transition="scale"
+        :height="700"
+        :width="1200"
+        classes="modal-img"
+    >
+      <div
+          slot="top-right"
+          @click="$modal.hide('img')"
+      >
+        Slot for close button
+      </div>
+      <img :src="`${publicPath}images/${item.imgName}`" />
+    </modal>
+    <img @click="$modal.show('img')" class="img-file" :src="`${publicPath}images/${item.imgName}`">
     <div class="container">
       <table>
         <tr>
@@ -80,6 +95,9 @@ export default {
 }
 </script>
 <style scoped>
+.img-file{
+  cursor: pointer;
+}
 table{
   border-spacing: 10px 10px;
 }
@@ -104,5 +122,25 @@ img {
 }
 p{
   white-space: pre-wrap;
+}
+</style>
+<style lang="scss">
+
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.5s;
+}
+.scale-enter,
+.scale-leave-active {
+  opacity: 0;
+  transform: scale(0.3) translateY(24px);
+}
+.modal-img{
+  background-color: transparent;
+  border-radius: 40px;
+}
+.modal-img img{
+  width: 1200px;
+  height: 700px;
 }
 </style>

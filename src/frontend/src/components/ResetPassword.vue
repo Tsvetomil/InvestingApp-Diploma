@@ -48,7 +48,7 @@ export default {
             this.errors.push(e)
         )
       }
-      // this.$router.push("/login")
+      this.$router.push("/login")
     }
   }
 }

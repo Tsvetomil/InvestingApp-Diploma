@@ -10,8 +10,9 @@ import MyAds from './components/MyAds.vue'
 import EditItem from './components/EditItem.vue'
 import ForgottenPassword from './components/ForgottenPassword.vue'
 import ResetPassword from './components/ResetPassword.vue'
+import VModal from 'vue-js-modal'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter, VModal);
 
 const routes = [
   {path: '/login', component: Login},
