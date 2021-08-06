@@ -54,13 +54,13 @@ table {
 
 .project {
   display:table-cell;
-  border: 1pt solid black;
+  /*border: 1pt solid black;*/
   padding: 20px;
   background-color: #dcdfe3;
 }
 
 .row {
-  border: solid 1px #404040;
+  /*border: solid 1px #404040;*/
   margin-left: auto;
   padding: 10px;
   border-collapse: separate;

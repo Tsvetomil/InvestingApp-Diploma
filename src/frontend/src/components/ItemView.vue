@@ -78,7 +78,6 @@ export default {
         .then( (resp) => {
           this.item = resp.data;
           this.ready = true
-          console.warn(resp.data)
         })
   },
   methods: {
@@ -107,7 +106,7 @@ h4{
   margin-top: 100px;
   background-color: white;
   height: 100%;
-  border: 3px solid #15bf3e;
+  /*border: 3px solid #15bf3e;*/
   padding: 10px;
   margin-left: 15%;
   margin-right: 15%;

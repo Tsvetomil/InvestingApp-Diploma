@@ -10,7 +10,6 @@
 
     methods: {
       redirect: function (){
-        console.log('here')
         this.$router.push('/')
       }
     }

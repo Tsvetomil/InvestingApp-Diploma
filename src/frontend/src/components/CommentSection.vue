@@ -71,7 +71,6 @@ export default {
           .then( (resp) => {
             // this.item = resp.data;
             this.comments = resp.data.entity;
-            console.warn(resp.data)
           })
     },
     async addComment() {
@@ -189,7 +188,7 @@ button{
   color: #5e733f;
 }
 .reply-msg{
-  margin-top: -4%;
+  margin-top: 0;
   text-align: left;
   margin-left: 18%;
   margin-right: 20%
