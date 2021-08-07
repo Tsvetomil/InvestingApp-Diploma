@@ -55,8 +55,9 @@ table {
 .project {
   display:table-cell;
   /*border: 1pt solid black;*/
+  border-radius: 40px;
   padding: 20px;
-  background-color: #dcdfe3;
+  background-color: #cad3e0;
 }
 
 .row {

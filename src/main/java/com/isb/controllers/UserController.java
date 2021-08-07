@@ -111,5 +111,16 @@ public class UserController implements IController{
         return new Response(HttpStatus.OK.value());
     }
 
+    @GetMapping("/user")
+    public Response getUser(HttpSession session){
+        UserDTO user = null;
+        try {
+            user = UserUtils.getUser(session);
+        } catch (UserException e) {
+            logger.warn(e);
+        }
+
+        return new Response(HttpStatus.OK.value(), user);
+    }
 
 }

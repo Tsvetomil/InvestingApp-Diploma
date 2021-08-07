@@ -18,6 +18,14 @@
         </div>
         <div v-show="authorized" class="menu-item menu-item-right">
           <div class="menu-text">
+            <a href="/profile">
+              <p class="home-text" id="profile"> Профил </p>
+            </a>
+            <router-view></router-view>
+          </div>
+        </div>
+        <div v-show="authorized" class="menu-item menu-item-right">
+          <div class="menu-text">
             <a href="/my-ads">
               <p class="home-text" id="ad"> Вашите обяви </p>
             </a>

@@ -59,7 +59,7 @@ export default {
         text: 'Промените са необратими',
         buttons: [
           {
-            title: 'НЕ',
+            title: 'ОТКАЗ',
             handler: () => {
               this.$modal.hide('dialog')
             }

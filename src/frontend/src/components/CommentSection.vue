@@ -188,7 +188,7 @@ button{
   color: #5e733f;
 }
 .reply-msg{
-  margin-top: 0;
+  margin-top: -1%;
   text-align: left;
   margin-left: 18%;
   margin-right: 20%

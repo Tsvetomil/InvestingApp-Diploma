@@ -41,6 +41,9 @@
             <p class="error-msg" v-if="errors.length">
               {{this.errors[0].response.data.msg}}
             </p>
+            <p class="error-msg" v-if="customError">
+              {{this.customError.toString()}}
+            </p>
           </form>
           <button type="submit" class="submit-button" v-on:click="submit()">Изпращане</button>
         </div>
@@ -62,7 +65,8 @@ export default {
     return {
       selectedImage: null,
       msg: "",
-      errors: []
+      errors: [],
+      customError: null
     }
   },
   methods: {
@@ -71,6 +75,7 @@ export default {
     },
     submit: async function() {
       if(!this.validateForm()){
+        this.customError = "Моля попълнете всички задължителни полета"
         return;
       }
       const loader = document.querySelector("#loading");
