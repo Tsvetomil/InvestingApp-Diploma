@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="ready">
     <NavBar/>
     <table>
       <tr>
@@ -10,16 +10,46 @@
         <th>Фамилия</th>
         <td>{{ this.user.lastName }}</td>
       </tr>
-    </table>
-    <table>
       <tr>
         <th>Имейл</th>
         <td>{{ this.user.email }}</td>
       </tr>
+    </table>
+    <table>
       <tr>
-        <button type="submit" ref="item" class="edit-button" v-on:click="editItem(item)">Смяна на парола</button>
+        <modal name="email-change" transition="pop-out" :width="500" :height="350">
+          <h2>Въведете имейл</h2>
+          <input type="email" id="email" required placeholder="Имейл"/>
+          <h3>Въведете парола за потвърждение</h3>
+          <input @keyup.enter="changeEmail" type="password" id="password" required placeholder="Парола"/>
+          <p v-show="this.error === true">Грешна парола</p>
+          <button type="submit" class="edit-button" v-on:click="changeEmail">Смяна</button>
+          <div class="loading"></div>
+        </modal>
+        <button type="submit" class="edit-button" v-on:click="$modal.show('email-change')">Смяна на Имейл</button>
+      </tr>
+      <tr>
+        <modal name="pass-change" transition="pop-out" :width="500" :height="350">
+          <h2>Въведете текущата си парола</h2>
+          <input type="password" id="curr-pass" required placeholder="Парола"/>
+          <h3> Въведете нова парола</h3>
+          <input @keyup.enter="changePass" type="password" id="new-pass" required placeholder="Нова Парола"/>
+          <p v-show="this.error === true">Грешна парола</p>
+          <button type="submit" class="edit-button" v-on:click="changePass">Смяна</button>
+          <div class="loading"></div>
+        </modal>
+        <button type="submit" class="edit-button" v-on:click="$modal.show('pass-change')">Смяна на парола</button>
       </tr>
     </table>
+    <modal name="error" transition="pop-out" :width="300" :height="200">
+      <h2>Грешна парола</h2>
+    </modal>
+    <modal name="success-email" transition="pop-out" :width="500" :height="80">
+      <h2>Имейла ви беше сменен успешно</h2>
+    </modal>
+    <modal name="success-pass" transition="pop-out" :width="500" :height="80">
+      <h2>Паролата ви беше сменен успешно</h2>
+    </modal>
   </div>
 </template>
 <script>
@@ -33,17 +63,62 @@ export default {
   components: {NavBar},
   data() {
     return {
-      user: null
+      user: null,
+      ready: false,
+      error: false
     }
   },
   mounted()
   {
     Vue.axios.get('/api/users/user')
         .then( (resp) => {
-          console.log(resp)
+          this.ready = true;
           this.user = resp.data.entity;
         })
   },
+  methods: {
+    async changeEmail() {
+      const loader = document.querySelector(".loading");
+      loader.classList.add("display");
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      if(email && password) {
+        let resp = await this.axios.post('/api/users/change-email',{
+          email: email,
+          password: password
+        })
+        if(resp.data.status === 200) {
+          this.$modal.hide('email-change');
+          this.$modal.show("success-email");
+        } else{
+          this.error = true
+          setTimeout(() => this.error = false, 2500)
+        }
+      }
+      loader.classList.remove("display")
+    },
+    async changePass() {
+      const loader = document.querySelector(".loading");
+      loader.classList.add("display");
+      let currPass = document.getElementById("curr-pass").value;
+      let newPass = document.getElementById("new-pass").value;
+
+      if(currPass && newPass){
+        let resp = await this.axios.post('/api/users/user/change-pass',{
+          currPassword: currPass,
+          newPassword: newPass
+        })
+        if(resp.data.status === 200) {
+          this.$modal.hide("pass-change");
+          this.$modal.show("success-pass");
+        } else{
+          this.error = true
+          setTimeout(() => this.error = false, 2500)
+        }
+      }
+      loader.classList.remove("display")
+    }
+  }
 }
 </script>
 <style scoped>
@@ -54,5 +129,22 @@ table{
   border-spacing: 50px 40px;
   /*display: inline-block;*/
   float: left;
+}
+input{
+  margin-left: 150px;
+}
+.loading {
+  width: 2rem;
+  height: 2rem;
+  border: 5px solid #f3f3f3;
+  border-top: 6px solid #9c41f2;
+  border-radius: 100%;
+  visibility: hidden;
+  animation: spin 1s infinite linear;
+  margin: auto;
+  left: 220px
+}
+.loading.display {
+  visibility: visible;
 }
 </style>

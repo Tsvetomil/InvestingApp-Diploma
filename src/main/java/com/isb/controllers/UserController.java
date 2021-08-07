@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
-import java.util.logging.Logger;
+import java.util.Map;
 
 
 @RestController
@@ -118,9 +118,59 @@ public class UserController implements IController{
             user = UserUtils.getUser(session);
         } catch (UserException e) {
             logger.warn(e);
+            return new Response(HttpStatus.UNAUTHORIZED.value());
         }
 
         return new Response(HttpStatus.OK.value(), user);
+    }
+
+    @PostMapping("/change-email")
+    public Response changeEmail(@RequestBody User user, HttpSession session){
+        UserDTO userFromSession = null;
+        try {
+            userFromSession = UserUtils.getUser(session);
+        } catch (UserException e) {
+            logger.warn(e);
+            return new Response(HttpStatus.UNAUTHORIZED.value());
+        }
+        User userById = usrRep.getUserById(userFromSession.getId());
+
+        boolean verify = argon2.verify(userById.getPassword(), user.getPassword().getBytes(StandardCharsets.UTF_8));
+
+        if(!verify){
+            return new Response(HttpStatus.UNAUTHORIZED.value());
+        }
+        userById.setEmail(user.getEmail());
+        usrRep.save(userById);
+
+        return new Response(HttpStatus.OK.value());
+    }
+
+    @PostMapping("/user/change-pass")
+    public Response changePassword(@RequestBody Map<String, String> params, HttpSession session){
+        String currPassword = params.get("currPassword");
+        String newPassword = params.get("newPassword");
+        UserDTO userFromSession = null;
+        try {
+            userFromSession = UserUtils.getUser(session);
+        } catch (UserException e) {
+            logger.warn(e);
+            return new Response(HttpStatus.UNAUTHORIZED.value());
+        }
+
+        User userById = usrRep.getUserById(userFromSession.getId());
+
+        boolean verify = argon2.verify(userById.getPassword(), currPassword.getBytes(StandardCharsets.UTF_8));
+
+        if(!verify){
+            return new Response(HttpStatus.UNAUTHORIZED.value());
+        }
+
+        userById.setPassword(argon2.hash(10,65536, 1, newPassword));
+
+        usrRep.save(userById);
+
+        return new Response(HttpStatus.OK.value());
     }
 
 }
