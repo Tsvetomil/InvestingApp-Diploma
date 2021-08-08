@@ -148,4 +148,7 @@ a{
 li {
   list-style-type: none;
 }
+.main{
+  background: #f1f0f0;
+}
 </style>

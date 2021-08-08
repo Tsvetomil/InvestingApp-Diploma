@@ -25,6 +25,7 @@ export default {
   margin-top: 3px;
 }
 body{
-  background: #e5e0e0;
+  background-image: url("./pic/background.jpg");
+  /*background: #e5e0e0;*/
 }
 </style>

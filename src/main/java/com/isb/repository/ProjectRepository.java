@@ -10,4 +10,8 @@ import java.util.List;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
     Project getProjectByImgName(String imgName);
     List<Project> getProjectsByUserID(long id);
+    List<Project> findAllByOrderByUploadedDateDesc();
+    List<Project> findAllByOrderByToRaiseAsc();
+    List<Project> findAllByOrderByToRaiseDesc();
+    List<Project> findAllByCaptionLike(String like);
 }

@@ -8,7 +8,6 @@ import com.isb.repository.ProjectRepository;
 import com.isb.rest.utils.Response;
 import com.isb.utils.UserUtils;
 import com.isb.utils.ImageUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +29,7 @@ public class ProjectController implements IController{
     @PostMapping("/add")
     public Response add(@RequestBody Project project, HttpSession session) throws UserException {
         project.setUserID(UserUtils.getUser(session).getId());
+        project.setUploadedDate(LocalDateTime.now());
         projectRepository.save(project);
 
         return new Response(HttpStatus.OK.value(), project);
@@ -37,8 +38,6 @@ public class ProjectController implements IController{
     @DeleteMapping("/remove/{id}")
     @ResponseBody
     public void delete(@PathVariable(value="id") long id, HttpSession session) throws UserException, NotDeletedException {
-        //TODO need to delete the image before that
-        //TODO create restriction for who should be able to delete what
         Optional<Project> projectOpt = projectRepository.findById(id);
         if(projectOpt.isPresent()){
             UserDTO user = UserUtils.getUser(session);
@@ -58,7 +57,26 @@ public class ProjectController implements IController{
         return projectRepository.findById(id).get();
     }
 
-    @GetMapping("/")
+    @GetMapping(value={"/filter/{filter}"})
+    public List<Project> getAll(@PathVariable(value="filter")  String filter){
+        if(filter.equals("mostRecent")){
+            return projectRepository.findAllByOrderByUploadedDateDesc();
+        }
+        else if(filter.equals("invPriceAsc")){
+            return projectRepository.findAllByOrderByToRaiseAsc();
+        }
+        else if(filter.equals("invPriceDesc")){
+            return projectRepository.findAllByOrderByToRaiseDesc();
+        }
+        return projectRepository.findAll();
+    }
+
+    @GetMapping(value={"/search"})
+    public List<Project> search(@RequestParam(name = "q") String query){
+        return projectRepository.findAllByCaptionLike("%" + query + "%");
+    }
+
+    @GetMapping(value={"/"})
     public List<Project> getAll(){
         return projectRepository.findAll();
     }

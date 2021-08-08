@@ -19,11 +19,11 @@
 <style scoped>
 img {
   position: absolute;
-  top: 4px;
+  top: 10px;
   left: 12px;
-  width: 80px;
+  width: 75px;
   padding: 3px;
-  height: 60px;
+  height: 53px;
   background-repeat: no-repeat;
   background-size: 30%;
   background-color: #aeb0b0;

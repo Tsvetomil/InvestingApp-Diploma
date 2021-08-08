@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.*;
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -31,6 +32,7 @@ public class Project {
     private String caption;
     private String imgName;
     private String city;
+    private LocalDateTime uploadedDate;
     private long userID;
 
     public void merge(Object newObject) {
