@@ -12,23 +12,60 @@
         <div class="sign-in-form">
           <form id="add-project-form" class="sign-in">
             <div class="inputs-row">
-              <input type="text" id="fname" placeholder="Собствено име*" required/>
-              <input type="text" id="lname" placeholder="Фамилно име*" required/>
+              <div class="text-field">
+                <input type="text" id="fname" required/>
+                <label for="fname" class="floating-text">Собствено име*</label>
+              </div>
+              <div class="text-field">
+                <input type="text" id="lname" required/>
+                <label for="lname" class="floating-text">Фамилно име*</label>
+              </div>
             </div>
             <div class="inputs-row">
-              <input type="text" id="companyName" placeholder="Име на компанията*" required/>
-              <input type="email" id="email" placeholder="Имейл*" required/>
+              <div class="text-field">
+                <input type="text" id="companyName" required/>
+                <label for="companyName" class="floating-text">Име на компанията*</label>
+              </div>
+              <div class="text-field">
+                <input type="text" id="email" required/>
+                <label for="email" class="floating-text">Имейл*</label>
+              </div>
             </div>
             <div class="inputs-row">
-              <input type="number" id="phone" placeholder="Телефонен номер*" required/>
-              <input type="text" id="website" placeholder="Уебсайт"/>
+              <div class="text-field">
+                <input type="text" id="phone" required/>
+                <label for="phone" class="floating-text">Телефонен номер*</label>
+              </div>
+<!--              <input type="number" id="phone" placeholder="Телефонен номер*" required/>-->
+              <div class="text-field">
+                <input type="text" id="website" required/>
+                <label for="website" class="floating-text">Уебсайт</label>
+              </div>
             </div>
-            <input type="text" id="city" placeholder="Град"/>
-            <input type="text" id="address" placeholder="Aдрес*" required/>
-            <input type="text" id="caption" placeholder="Заглавие*" required/>
-            <input type="number" id="toRaise" placeholder="Колко средства търсите да наберете?*(в лева)" required/>
-            <input type="number" id="evaluationPrice" placeholder="На колко се оценява компанията ви в момента?*(в лева)" required/>
-            <input type="number" id="equity" placeholder="Какъв % дял сте готови да дадете на инвеститора?*" required/>
+            <div class="text-field">
+              <input type="text" id="city" required/>
+              <label for="city" class="floating-text-2">Град</label>
+            </div>
+            <div class="text-field">
+              <input type="text" id="address" required/>
+              <label for="address" class="floating-text-2">Aдрес*</label>
+            </div>
+            <div class="text-field">
+              <input type="text" id="caption" required/>
+              <label for="caption" class="floating-text-2">Заглавие*</label>
+            </div>
+            <div class="text-field">
+              <input type="text" id="toRaise" required/>
+              <label for="toRaise" class="floating-text-2">Колко средства търсите да наберете?*(в лева)</label>
+            </div>
+            <div class="text-field">
+              <input type="text" id="evaluationPrice" required/>
+              <label for="evaluationPrice" class="floating-text-2">На колко се оценява компанията ви към този момент?*(в лева)</label>
+            </div>
+            <div class="text-field">
+              <input type="text" id="equity" required/>
+              <label for="equity" class="floating-text-2">Какъв % дял сте готови да дадете на инвеститора?*</label>
+            </div>
             <label for="desc">Описание</label>
             <textarea id="desc" rows="10" cols="50">
             </textarea>
@@ -231,7 +268,7 @@ input {
 }
 input{
   margin-right: 10px;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 select{
   background-color: #c6e7ae;
@@ -294,5 +331,42 @@ label{
 }
 #address{
   width: 85%;
+}
+</style>
+<style scoped>
+.floating-text {
+  color: #999;
+  position: absolute;
+  pointer-events: none;
+  left: 28px;
+  top: -4px;
+  transition: 0.2s;
+}
+input:focus ~ .floating-text, input:valid ~ .floating-text {
+  top: -30px;
+  left: 15px;
+  font-size: small;
+  color: #32cd32;
+  background-color: #ffffff;
+  padding:0 5px 0 5px;
+  pointer-events: none;
+}
+
+.floating-text-2{
+  color: #999;
+  position: absolute;
+  pointer-events: none;
+  left: 28px;
+  top: -22px;
+  transition: 0.2s;
+}
+input:focus ~ .floating-text-2, input:valid ~ .floating-text-2 {
+  top: -51px;
+  left: 15px;
+  font-size: small;
+  color: #32cd32;
+  background-color: #ffffff;
+  padding:0 5px 0 5px;
+  pointer-events: none;
 }
 </style>

@@ -4,7 +4,11 @@
     <div id="filters">
       <div id="search">
 <!--        <h3 id="search-text">Търсене</h3>-->
-        <input @keyup.enter="search" type="text" id="search-input" placeholder="Търсене..."/>
+        <div class="text-field">
+          <input @keyup.enter="search" type="text" id="search-input" required/>
+          <label for="search-input" class="floating-text">Търсене...</label>
+        </div>
+<!--        <input @keyup.enter="search" type="text" id="search-input" placeholder="Търсене..."/>-->
         <img id="search-img" src="../pic/search.png" alt="Search" v-on:click="search">
       </div>
       <div class="dropdown">
@@ -192,5 +196,24 @@ table {
 #clear-filters:hover{
   border-bottom: 2px solid #2e2437;
   color: #2e2437;
+}
+</style>
+<style scoped>
+.floating-text {
+  color: #999;
+  position: absolute;
+  pointer-events: none;
+  left: 28px;
+  top: -4px;
+  transition: 0.2s;
+}
+input:focus ~ .floating-text, input:valid ~ .floating-text {
+  top: -30px;
+  left: 15px;
+  font-size: small;
+  color: #000900;
+  background-color: transparent;
+  padding:0 5px 0 5px;
+  pointer-events: none;
 }
 </style>

@@ -13,5 +13,5 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     List<Project> findAllByOrderByUploadedDateDesc();
     List<Project> findAllByOrderByToRaiseAsc();
     List<Project> findAllByOrderByToRaiseDesc();
-    List<Project> findAllByCaptionLike(String like);
+    List<Project> findAllByCaptionLikeIgnoreCase(String like);
 }

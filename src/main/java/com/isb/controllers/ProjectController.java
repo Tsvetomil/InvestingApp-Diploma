@@ -73,7 +73,7 @@ public class ProjectController implements IController{
 
     @GetMapping(value={"/search"})
     public List<Project> search(@RequestParam(name = "q") String query){
-        return projectRepository.findAllByCaptionLike("%" + query + "%");
+        return projectRepository.findAllByCaptionLikeIgnoreCase("%" + query + "%");
     }
 
     @GetMapping(value={"/"})

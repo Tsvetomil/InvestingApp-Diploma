@@ -8,10 +8,22 @@
     <div class="form-overlay">
       <div class="sign-in-form">
         <form class="sign-in" action="#">
-          <input type="email" id="email" placeholder="Имейл" required/>
-          <input type="text" id="fname" placeholder="Собствено име" required/>
-          <input type="text" id="lname" placeholder="Фамилно име" required/>
-          <input type="password" id="pass" placeholder="Парола" required/>
+          <div class="text-field">
+            <input type="text" id="email" required/>
+            <label class="floating-text">Имейл</label>
+          </div>
+          <div class="text-field">
+            <input type="text" id="fname" required/>
+            <label class="floating-text">Собствено име</label>
+          </div>
+          <div class="text-field">
+            <input type="text" id="lname" required/>
+            <label class="floating-text">Фамилно име</label>
+          </div>
+          <div class="text-field">
+            <input type="password" id="pass" required/>
+            <label class="floating-text">Парола</label>
+          </div>
           <label for="date">Дата на раждане</label>
           <input type="date" id="date" required/>
 

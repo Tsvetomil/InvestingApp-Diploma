@@ -11,8 +11,14 @@
       <div class="form-overlay">
         <div class="sign-in-form">
           <form class="sign-in">
-            <input type="email" id="email" placeholder="Имейл" required/>
-            <input @keyup.enter="login" type="password" id="pass" placeholder="Парола" required/>
+            <div class="text-field">
+              <input type="text" id="email" required/>
+              <label class="floating-text">Имейл</label>
+            </div>
+            <div class="text-field">
+              <input @keyup.enter="login" type="password" id="pass" required/>
+              <label class="floating-text">Парола</label>
+            </div>
             <p v-if="errors.length">
               Имейла или паролата е неправилна
             </p>
@@ -81,6 +87,40 @@ export default {
 }
 </script>
 <style>
+.text-field {
+  position: relative;
+  margin: 10px 2.5px 20px 2.5px;
+}
+
+input {
+  display: inline-block;
+  color: #444;
+  background-color: #fafafa;
+  padding: 10px 10px 10px 10px;
+}
+
+input:focus {
+  background-color:#fff;
+  border-color:#32cd32;
+}
+
+.floating-text {
+  color: #999;
+  position: absolute;
+  pointer-events: none;
+  left: 28px;
+  top: -25px;
+  transition: 0.2s;
+}
+
+input:focus ~ .floating-text, input:valid ~ .floating-text {
+  top: -50px;
+  left: 15px;
+  font-size: small;
+  color: #32cd32;
+  background-color: #ffffff;
+  padding:0 5px 0 5px;
+}
 .text-overlay {
   position: relative;
   background: #c6e7ae;
