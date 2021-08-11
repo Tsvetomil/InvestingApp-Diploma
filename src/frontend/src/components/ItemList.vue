@@ -230,7 +230,7 @@ input:focus ~ .floating-text, input:valid ~ .floating-text {
 }
 #search-text{
   margin-top: 25px;
-  margin-left: 12px;
+  margin-left: 18px;
 
 }
 </style>

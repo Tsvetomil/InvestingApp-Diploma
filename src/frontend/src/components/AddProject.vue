@@ -287,7 +287,7 @@ label{
   margin-left: 14px;
 }
 #desc{
-  width: 120%;
+  width: 100%;
   display: block;
   resize: vertical;
   font-size: 16px;
