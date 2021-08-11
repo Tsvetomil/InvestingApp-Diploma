@@ -3,22 +3,22 @@
     <NavBar/>
     <table>
       <tr>
-        <th>Име</th>
+        <th><span class="th-text">Име</span></th>
         <td>{{ this.user.firstName }}</td>
       </tr>
       <tr>
-        <th>Фамилия</th>
+        <th><span class="th-text">Фамилия</span></th>
         <td>{{ this.user.lastName }}</td>
       </tr>
       <tr>
-        <th>Имейл</th>
+        <th><span class="th-text">Имейл</span></th>
         <td>{{ this.user.email }}</td>
       </tr>
     </table>
     <table>
       <tr>
         <modal name="email-change" transition="pop-out" :width="500" :height="350">
-          <h2>Въведете имейл</h2>
+          <h3>Въведете имейл</h3>
           <input type="email" id="email" required placeholder="Имейл"/>
           <h3>Въведете парола за потвърждение</h3>
           <input @keyup.enter="changeEmail" type="password" id="password" required placeholder="Парола"/>
@@ -30,7 +30,7 @@
       </tr>
       <tr>
         <modal name="pass-change" transition="pop-out" :width="500" :height="350">
-          <h2>Въведете текущата си парола</h2>
+          <h3>Въведете текущата си парола</h3>
           <input type="password" id="curr-pass" required placeholder="Парола"/>
           <h3> Въведете нова парола</h3>
           <input @keyup.enter="changePass" type="password" id="new-pass" required placeholder="Нова Парола"/>
@@ -146,5 +146,14 @@ input{
 }
 .loading.display {
   visibility: visible;
+}
+.th-text{
+  font-style: italic;
+  letter-spacing: 3px;
+}
+h3{
+  display: flex;
+  text-align: left;
+  margin-left: 50px;
 }
 </style>

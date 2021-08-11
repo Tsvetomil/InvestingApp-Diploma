@@ -52,7 +52,7 @@
             </div>
             <div class="text-field">
               <input type="text" id="caption" required/>
-              <label for="caption" class="floating-text-2">Заглавие*</label>
+              <label for="caption" class="floating-text-2">Заглавие на обявата*</label>
             </div>
             <div class="text-field">
               <input type="text" id="toRaise" required/>
@@ -69,7 +69,7 @@
             <label for="desc">Описание</label>
             <textarea id="desc" rows="10" cols="50">
             </textarea>
-            <label for="reasonsToInvest">Защо някой да инвестира във вашата компания?</label>
+            <label for="reasonsToInvest">Защо някой би инвестирал във вашата компания?</label>
             <textarea id="reasonsToInvest" rows="4" cols="50">
             </textarea>
             <label for="file-input"> Снимка за миниатюра на обявата</label>
@@ -287,16 +287,23 @@ label{
 #desc{
   width: 120%;
   display: block;
-  border: 1px solid #cdcdcd;
   resize: vertical;
-  background-color: #ffffff;
   font-size: 16px;
+}
+textarea:focus{
+  outline: 3px solid #9dd674;
+  box-shadow: 5px 5px 5px 5px #c6e7ae;
+}
+textarea{
+  padding: 5px;
+  font-family: Tahoma, sans-serif;
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  border: 3px solid #acd9b6;
 }
 #reasonsToInvest{
   width: 95%;
-  border: 1px solid #cdcdcd;
   resize: vertical;
-  background-color: #ffffff;
   font-size: 16px;
 }
 #loading {
