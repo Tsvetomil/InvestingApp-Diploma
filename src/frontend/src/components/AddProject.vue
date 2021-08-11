@@ -13,57 +13,57 @@
           <form id="add-project-form" class="sign-in">
             <div class="inputs-row">
               <div class="text-field">
-                <input type="text" id="fname" required/>
+                <input type="text" id="fname" class="text-input" required/>
                 <label for="fname" class="floating-text">Собствено име*</label>
               </div>
               <div class="text-field">
-                <input type="text" id="lname" required/>
+                <input type="text" id="lname" class="text-input" required/>
                 <label for="lname" class="floating-text">Фамилно име*</label>
               </div>
             </div>
             <div class="inputs-row">
               <div class="text-field">
-                <input type="text" id="companyName" required/>
+                <input type="text" id="companyName" class="text-input" required/>
                 <label for="companyName" class="floating-text">Име на компанията*</label>
               </div>
               <div class="text-field">
-                <input type="text" id="email" required/>
+                <input type="text" id="email" class="text-input" required/>
                 <label for="email" class="floating-text">Имейл*</label>
               </div>
             </div>
             <div class="inputs-row">
               <div class="text-field">
-                <input type="text" id="phone" required/>
+                <input type="text" id="phone" class="text-input" required/>
                 <label for="phone" class="floating-text">Телефонен номер*</label>
               </div>
 <!--              <input type="number" id="phone" placeholder="Телефонен номер*" required/>-->
               <div class="text-field">
-                <input type="text" id="website" required/>
+                <input type="text" id="website" class="text-input" required/>
                 <label for="website" class="floating-text">Уебсайт</label>
               </div>
             </div>
             <div class="text-field">
-              <input type="text" id="city" required/>
+              <input type="text" id="city" class="text-input" required/>
               <label for="city" class="floating-text-2">Град</label>
             </div>
             <div class="text-field">
-              <input type="text" id="address" required/>
+              <input type="text" id="address" class="text-input" required/>
               <label for="address" class="floating-text-2">Aдрес*</label>
             </div>
             <div class="text-field">
-              <input type="text" id="caption" required/>
+              <input type="text" id="caption" class="text-input" required/>
               <label for="caption" class="floating-text-2">Заглавие на обявата*</label>
             </div>
             <div class="text-field">
-              <input type="text" id="toRaise" required/>
+              <input type="text" id="toRaise" class="text-input" required/>
               <label for="toRaise" class="floating-text-2">Колко средства търсите да наберете?*(в лева)</label>
             </div>
             <div class="text-field">
-              <input type="text" id="evaluationPrice" required/>
+              <input type="text" id="evaluationPrice" class="text-input" required/>
               <label for="evaluationPrice" class="floating-text-2">На колко се оценява компанията ви към този момент?*(в лева)</label>
             </div>
             <div class="text-field">
-              <input type="text" id="equity" required/>
+              <input type="text" id="equity" class="text-input" required/>
               <label for="equity" class="floating-text-2">Какъв % дял сте готови да дадете на инвеститора?*</label>
             </div>
             <label for="desc">Описание</label>

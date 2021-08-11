@@ -12,11 +12,11 @@
         <div class="sign-in-form">
           <form class="sign-in">
             <div class="text-field">
-              <input type="text" id="email" required/>
+              <input type="text" id="email" class="text-input" required/>
               <label class="floating-text">Имейл</label>
             </div>
             <div class="text-field">
-              <input @keyup.enter="login" type="password" id="pass" required/>
+              <input @keyup.enter="login" type="password" id="pass" class="text-input" required/>
               <label class="floating-text">Парола</label>
             </div>
             <p v-if="errors.length">
@@ -99,7 +99,7 @@ input {
   padding: 10px 10px 10px 10px;
 }
 
-input:focus {
+.text-input:focus {
   background-color:#fff;
   border-color:#32cd32;
 }

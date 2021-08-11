@@ -6,7 +6,7 @@
 <!--        <h3 id="search-text">Търсене</h3>-->
         <div class="text-field">
           <input @keyup.enter="search" type="text" id="search-input" required/>
-          <label for="search-input" class="floating-text">Търсене...</label>
+          <label for="search-input" class="floating-text" id="search-text">Търсене...</label>
         </div>
 <!--        <input @keyup.enter="search" type="text" id="search-input" placeholder="Търсене..."/>-->
         <img id="search-img" src="../pic/search.png" alt="Search" v-on:click="search">
@@ -224,5 +224,13 @@ input:focus ~ .floating-text, input:valid ~ .floating-text {
   background-color: transparent;
   padding:0 5px 0 5px;
   pointer-events: none;
+}
+#search-input{
+  margin-top: 10px;
+}
+#search-text{
+  margin-top: 25px;
+  margin-left: 12px;
+
 }
 </style>

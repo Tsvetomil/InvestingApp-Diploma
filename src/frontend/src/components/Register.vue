@@ -9,19 +9,19 @@
       <div class="sign-in-form">
         <form class="sign-in" action="#">
           <div class="text-field">
-            <input type="text" id="email" required/>
+            <input type="text" id="email" class="text-input" required/>
             <label class="floating-text">Имейл</label>
           </div>
           <div class="text-field">
-            <input type="text" id="fname" required/>
+            <input type="text" id="fname" class="text-input" required/>
             <label class="floating-text">Собствено име</label>
           </div>
           <div class="text-field">
-            <input type="text" id="lname" required/>
+            <input type="text" id="lname" class="text-input" required/>
             <label class="floating-text">Фамилно име</label>
           </div>
           <div class="text-field">
-            <input type="password" id="pass" required/>
+            <input type="password" id="pass" class="text-input" required/>
             <label class="floating-text">Парола</label>
           </div>
           <label for="date">Дата на раждане</label>
