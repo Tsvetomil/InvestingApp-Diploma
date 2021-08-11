@@ -199,6 +199,7 @@ export default {
   /*float:left;*/
   display: flex;
   flex-direction: row;
+  margin-bottom: -35px;
 }
 .text-overlay {
   position: relative;

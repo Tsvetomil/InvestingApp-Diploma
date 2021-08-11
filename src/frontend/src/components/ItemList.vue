@@ -200,6 +200,7 @@ table {
   cursor: pointer;
   color: #818181;
   border-bottom: 2px solid #e5e0e0;
+  margin-bottom: 50px;
 }
 #clear-filters:hover{
   border-bottom: 2px solid #2e2437;
