@@ -8,21 +8,25 @@
     <div class="form-overlay">
       <div class="sign-in-form">
         <form class="sign-in" action="#">
-          <div class="text-field">
-            <input type="text" id="email" class="text-input" required/>
-            <label class="floating-text">Имейл</label>
+          <div class="inputs-row">
+            <div class="text-field">
+              <input type="text" id="email" class="text-input" required/>
+              <label class="floating-text">Имейл</label>
+            </div>
+            <div class="text-field">
+              <input type="text" id="fname" class="text-input" required/>
+              <label class="floating-text">Собствено име</label>
+            </div>
           </div>
-          <div class="text-field">
-            <input type="text" id="fname" class="text-input" required/>
-            <label class="floating-text">Собствено име</label>
-          </div>
-          <div class="text-field">
-            <input type="text" id="lname" class="text-input" required/>
-            <label class="floating-text">Фамилно име</label>
-          </div>
-          <div class="text-field">
-            <input type="password" id="pass" class="text-input" required/>
-            <label class="floating-text">Парола</label>
+          <div class="inputs-row">
+            <div class="text-field">
+              <input type="text" id="lname" class="text-input" required/>
+              <label class="floating-text">Фамилно име</label>
+            </div>
+            <div class="text-field">
+              <input type="password" id="pass" class="text-input" required/>
+              <label class="floating-text">Парола</label>
+            </div>
           </div>
           <label for="date">Дата на раждане</label>
           <input type="date" id="date" required/>
@@ -137,5 +141,14 @@ button:focus {
   position: relative;
   align-items: center;
   margin: auto;
+}
+</style>
+<style scoped>
+/*label{*/
+/*  margin-top: 56px;*/
+/*  margin-left: 25px;*/
+/*}*/
+#dateOfBirth{
+  margin-bottom: 20px;
 }
 </style>
