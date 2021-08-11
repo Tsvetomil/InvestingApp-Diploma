@@ -269,7 +269,7 @@ input {
 }
 input{
   margin-right: 10px;
-  margin-left: 20px;
+  margin-left: 35px;
 }
 select{
   background-color: #c6e7ae;
@@ -284,7 +284,7 @@ label{
   /*margin: auto;*/
   margin-top: 35px;
   margin-bottom: 6px;
-  margin-left: 10px;
+  margin-left: 14px;
 }
 #desc{
   width: 120%;
