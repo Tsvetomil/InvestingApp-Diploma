@@ -284,6 +284,7 @@ label{
   /*margin: auto;*/
   margin-top: 35px;
   margin-bottom: 6px;
+  margin-left: 10px;
 }
 #desc{
   width: 120%;
