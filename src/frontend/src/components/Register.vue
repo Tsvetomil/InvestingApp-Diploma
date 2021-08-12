@@ -31,6 +31,9 @@
           <label for="date">Дата на раждане</label>
           <input type="date" id="date" required/>
 
+          <p v-if="errors.length">
+            {{this.errors[0].response.data.msg}}
+          </p>
           <button v-on:click="register">Регистриране</button>
         </form>
       </div>
@@ -48,11 +51,13 @@ export default {
   components: {Logo},
   data() {
     return {
-      msg: ""
+      msg: "",
+      errors: []
     }
   },
   methods: {
-    register: function () {
+    register: async function () {
+      this.errors = [];
       let email = document.getElementById("email").value;
       let fname = document.getElementById("fname").value;
       let lname = document.getElementById("lname").value;
@@ -60,15 +65,20 @@ export default {
       let date = document.getElementById("date").value;
 
       if(email && fname && lname && pass && date){
-        this.axios.post("/api/users/register", {
+        let resp = await this.axios.post("/api/users/register", {
           firstName: fname,
           lastName: lname,
           email: email,
           password: pass,
           dateOfBirth: date
+        }).catch(e => {
+          this.errors.push(e)
+          console.log(e)
         })
-        //validate email
-        this.$router.push('/login')
+        console.log(resp)
+        if(resp.data.status === 200) {
+          this.$router.push('/login')
+        }
       }
 
     }
@@ -144,10 +154,10 @@ button:focus {
 }
 </style>
 <style scoped>
-/*label{*/
-/*  margin-top: 56px;*/
-/*  margin-left: 25px;*/
-/*}*/
+label{
+  margin-top: 56px;
+  margin-left: 25px;
+}
 #dateOfBirth{
   margin-bottom: 20px;
 }
