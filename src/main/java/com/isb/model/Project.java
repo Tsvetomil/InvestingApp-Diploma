@@ -24,7 +24,7 @@ public class Project {
     private String phone;
     private String reasonsToInvest;
     private String description;
-    private String toRaise;
+    private Integer toRaise;
     private String website;
     private String address;
     private Integer evaluationPrice;
