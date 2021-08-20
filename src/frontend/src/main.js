@@ -11,6 +11,7 @@ import EditItem from './components/EditItem.vue'
 import ForgottenPassword from './components/ForgottenPassword.vue'
 import ResetPassword from './components/ResetPassword.vue'
 import Profile from './components/Profile.vue'
+import AdminPanel from './components/AdminPanel.vue'
 import VModal from 'vue-js-modal'
 
 Vue.use(VueRouter, VModal);
@@ -25,7 +26,8 @@ const routes = [
   {path: '/project/edit', component: EditItem},
   {path: '/reset-password', component: ForgottenPassword},
   {path: '/password-reset', component: ResetPassword},
-  {path: '/profile', component: Profile}
+  {path: '/profile', component: Profile},
+  {path: '/admin-panel', component: AdminPanel}
 ]
 const router = new VueRouter({
   routes,

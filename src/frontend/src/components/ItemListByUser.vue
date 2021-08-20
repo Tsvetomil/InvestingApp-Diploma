@@ -34,10 +34,21 @@ export default {
   },
   mounted()
   {
-    Vue.axios.get('/api/project/user')
-        .then( (resp) => {
-          this.list = resp.data;
-        })
+    let url_string = window.location.href;
+    let url = new URL(url_string);
+    let id = url.searchParams.get("id")
+    if(id){
+      Vue.axios.get('/api/project/admin/user/' + id)
+          .then( (resp) => {
+            this.list = resp.data;
+          })
+    }
+    else {
+      Vue.axios.get('/api/project/user')
+          .then((resp) => {
+            this.list = resp.data;
+          })
+    }
   },
   methods: {
     isDataLoaded: function(){

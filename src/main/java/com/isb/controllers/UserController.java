@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -52,6 +55,8 @@ public class UserController implements IController{
         if(null != dbUser && argon2.verify(dbUser.getPassword(), user.getPassword().getBytes(StandardCharsets.UTF_8))) {
             UserDTO userDTO = UserDTO.toDTO(dbUser);
             session.setAttribute("user", userDTO);
+            dbUser.setLastLogin(LocalDateTime.now());
+            usrRep.save(dbUser);
             return new Response(HttpStatus.OK.value(), UserDTO.toDTO(user));
         }
         else{
@@ -71,6 +76,18 @@ public class UserController implements IController{
             return new Response(HttpStatus.OK.value());
         }
         return new Response(HttpStatus.UNAUTHORIZED.value());
+    }
+
+    @GetMapping("/isAdmin")
+    public Response isAdmin(HttpSession session){
+        UserDTO user = null;
+        try {
+            user = UserUtils.getUser(session);
+        } catch (UserException e) {
+            return new Response(HttpStatus.UNAUTHORIZED.value());
+        }
+        return new Response(HttpStatus.OK.value(), user.isAdmin());
+
     }
 
     @PostMapping("/forgotten-password")
@@ -171,6 +188,24 @@ public class UserController implements IController{
         usrRep.save(userById);
 
         return new Response(HttpStatus.OK.value());
+    }
+
+    @GetMapping("/all")
+    public Response getAll(HttpSession session){
+        try {
+            UserDTO user = UserUtils.getUser(session);
+            User userById = usrRep.getUserById(user.getId());
+            if(!userById.isAdmin()){
+                throw new UserException("Unauthorized");
+            }
+            List<UserDTO> result = new ArrayList<>();
+            for (User usr : usrRep.findAll()){
+                result.add(UserDTO.toDTO(usr));
+            }
+            return new Response(HttpStatus.OK.value(), result);
+        } catch (UserException e) {
+            return new Response(HttpStatus.UNAUTHORIZED.value());
+        }
     }
 
 }

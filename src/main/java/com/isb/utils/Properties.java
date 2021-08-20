@@ -1,5 +1,7 @@
 package com.isb.utils;
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,14 +20,8 @@ public class Properties {
         try(BufferedReader utf8 = new BufferedReader(new InputStreamReader(new FileInputStream(pathURL.getPath()), StandardCharsets.UTF_8))) {
             prop.load(utf8);
         }catch (IOException e){
-
+            Logger.getLogger(Properties.class).error(e);
         }
-        int a =2;
-//        try(FileInputStream file = new FileInputStream(pathURL.getPath())) {
-//            prop.load(file);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
     }
 

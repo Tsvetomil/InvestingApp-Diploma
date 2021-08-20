@@ -7,7 +7,7 @@
     </div>
     <div class="form-overlay">
       <div class="sign-in-form">
-        <form class="sign-in" action="#">
+        <form class="sign-in" action="javascript:void(0)">
           <div class="inputs-row">
             <div class="text-field">
               <input type="text" id="email" class="text-input" required/>
@@ -30,10 +30,11 @@
           </div>
           <label for="date">Дата на раждане</label>
           <input type="date" id="date" required/>
-
-          <p v-if="errors.length">
-            {{this.errors[0].response.data.msg}}
-          </p>
+          <div id="error-div">
+            <p v-if="errors.length">
+              {{this.errors[0].response.data.msg}}
+            </p>
+          </div>
           <button v-on:click="register">Регистриране</button>
         </form>
       </div>
@@ -152,10 +153,16 @@ button:focus {
   align-items: center;
   margin: auto;
 }
+#error-div {
+  background-color: #f38686;
+  border-radius: 6px;
+  margin-left: 60px;
+  margin-right: 60px;
+}
 </style>
 <style scoped>
 label{
-  margin-top: 56px;
+  margin-top: 50px;
   margin-left: 25px;
 }
 #dateOfBirth{

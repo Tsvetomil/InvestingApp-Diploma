@@ -2,20 +2,25 @@ package com.isb.controllers;
 
 import com.isb.dto.CommentDTO;
 import com.isb.dto.UserDTO;
+import com.isb.exception.NotDeletedException;
 import com.isb.exception.UserException;
 import com.isb.model.Comment;
+import com.isb.model.Project;
 import com.isb.model.SubComment;
 import com.isb.repository.CommentRepository;
 import com.isb.rest.utils.Response;
+import com.isb.utils.ImageUtils;
 import com.isb.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/comment")
@@ -67,5 +72,20 @@ public class CommentController implements IController{
         commentRepository.save(one);
 
         return new Response(HttpStatus.OK.value());
+    }
+
+    @DeleteMapping("/remove/{id}")
+    @ResponseBody
+    public void deleteComment(@PathVariable(value="id") long id, HttpSession session) throws UserException, NotDeletedException {
+        Optional<Comment> commentOpt = commentRepository.findById(id);
+        if(commentOpt.isPresent()){
+            UserDTO user = UserUtils.getUser(session);
+            Comment comment = commentOpt.get();
+            if(user.isAdmin()){
+                commentRepository.delete(comment);
+                return;
+            }
+        }
+        throw new NotDeletedException("Not deleted");
     }
 }

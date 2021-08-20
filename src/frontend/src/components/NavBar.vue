@@ -24,10 +24,18 @@
             <router-view></router-view>
           </div>
         </div>
-        <div v-show="authorized" class="menu-item menu-item-right">
+        <div v-show="authorized && !isAdmin" class="menu-item menu-item-right">
           <div class="menu-text">
             <a href="/my-ads">
               <p class="home-text" id="ad"> Вашите обяви </p>
+            </a>
+            <router-view></router-view>
+          </div>
+        </div>
+        <div v-show="authorized && isAdmin" class="menu-item menu-item-right">
+          <div class="menu-text">
+            <a href="/admin-panel">
+              <p class="home-text" id="admin-panel"> Админ панел </p>
             </a>
             <router-view></router-view>
           </div>
@@ -47,7 +55,8 @@ export default {
   data() {
     return {
       items: null,
-      authorized: false
+      authorized: false,
+      isAdmin: false
     }
   },
   name: 'NavBar',
@@ -58,6 +67,11 @@ export default {
     axios.get("/api/users/isAuthorized").then(resp => {
       if(resp.data.status === 200){
         this.authorized = true;
+      }
+    })
+    axios.get("/api/users/isAdmin").then(resp => {
+      if(resp.data.status === 200){
+        this.isAdmin = resp.data.entity;
       }
     })
   },

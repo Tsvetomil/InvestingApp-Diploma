@@ -4,8 +4,11 @@ package com.isb.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -21,8 +24,12 @@ public class User {
     private String lastName;
     private String password;
     private String email;
-    private Date dateOfBirth;
+    @Column(columnDefinition = "DATE")
+    private LocalDate dateOfBirth;
     @Column(columnDefinition = "boolean default false")
     private boolean activated;
+    @Column(columnDefinition = "boolean default false")
+    private boolean isAdmin;
+    private LocalDateTime lastLogin;
 
 }

@@ -11,6 +11,7 @@
           <p class="owner">{{comment.owner}}</p>
           <span class="timestamp">{{comment.timestamp}}</span>
           <p class="msg"> {{ comment.message }}</p>
+          <p v-if="isAdmin" class="del" v-on:click="delComment(comment)">Изтрий</p>
           <div id="reply-div">
             <a href="javascript:void(0)" @click="setID(comment)">
               <p class="home-text" id="reply"> отговор </p>
@@ -25,8 +26,8 @@
               <p class="reply-owner">{{reply.owner}}</p>
               <span id="reply-date">{{reply.timestamp}}</span>
               <p class="reply-msg">{{reply.message}}</p>
+              <p v-if="isAdmin" class="del" v-on:click="delComment(reply)">Изтрий</p>
             </div>
-
           </div>
         </div>
       </div>
@@ -48,6 +49,7 @@ export default {
   data() {
     return {
       authorized: false,
+      isAdmin: false,
       comments: null,
       projectID: null,
       replyFired: null
@@ -59,6 +61,12 @@ export default {
         this.authorized = true;
       }
     })
+    axios.get("/api/users/isAdmin").then(resp => {
+      if(resp.data.status === 200){
+        this.isAdmin = resp.data.entity;
+      }
+    })
+
 
     let url_string = window.location.href;
     let url = new URL(url_string);
@@ -113,9 +121,12 @@ export default {
     },
     fire(comment) {
       return this.replyFired === comment.id;
+    },
+    async delComment(comment) {
+      await axios.delete('api/comment/remove/' + comment.id);
+      window.location.reload()
     }
   }
-
 }
 </script>
 <style scoped>
@@ -231,5 +242,9 @@ div{
 }
 p{
   white-space: pre-wrap;
+}
+.del{
+  color: red;
+  cursor: pointer;
 }
 </style>

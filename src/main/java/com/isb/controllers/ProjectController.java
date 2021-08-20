@@ -42,7 +42,7 @@ public class ProjectController implements IController{
         if(projectOpt.isPresent()){
             UserDTO user = UserUtils.getUser(session);
             Project project = projectOpt.get();
-            if(user.getId() == project.getUserID()){
+            if(user.getId() == project.getUserID() || user.isAdmin()){
                 ImageUtils.deleteImage(project.getImgName());
                 new File(project.getImgName()).delete();
                 projectRepository.delete(project);
@@ -84,6 +84,13 @@ public class ProjectController implements IController{
     @GetMapping("/user")
     public List<Project> getAllByID(HttpSession session) throws UserException {
         return projectRepository.getProjectsByUserID(UserUtils.getUser(session).getId());
+    }
+    @GetMapping("/admin/user/{id}")
+    public List<Project> getAllByID(@PathVariable(value="id") long id, HttpSession session) throws UserException {
+        if(UserUtils.getUser(session).isAdmin()) {
+            return projectRepository.getProjectsByUserID(id);
+        }
+        return null;
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
