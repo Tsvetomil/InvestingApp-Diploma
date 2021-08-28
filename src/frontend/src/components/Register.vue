@@ -24,7 +24,7 @@
               <label class="floating-text">Фамилно име</label>
             </div>
             <div class="text-field">
-              <input type="password" id="pass" class="text-input" minlength="1" maxlength="20" required/>
+              <input type="password" id="pass" class="text-input" minlength="8" maxlength="20" required/>
               <label class="floating-text">Парола</label>
             </div>
           </div>
