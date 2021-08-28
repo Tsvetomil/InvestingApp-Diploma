@@ -10,21 +10,21 @@
         <form class="sign-in" action="javascript:void(0)">
           <div class="inputs-row">
             <div class="text-field">
-              <input type="text" id="email" class="text-input" required/>
+              <input type="text" id="email" class="text-input" minlength="1" maxlength="30" required/>
               <label class="floating-text">Имейл</label>
             </div>
             <div class="text-field">
-              <input type="text" id="fname" class="text-input" required/>
+              <input type="text" id="fname" class="text-input" minlength="1" maxlength="20" required/>
               <label class="floating-text">Собствено име</label>
             </div>
           </div>
           <div class="inputs-row">
             <div class="text-field">
-              <input type="text" id="lname" class="text-input" required/>
+              <input type="text" id="lname" class="text-input" minlength="1" maxlength="20" required/>
               <label class="floating-text">Фамилно име</label>
             </div>
             <div class="text-field">
-              <input type="password" id="pass" class="text-input" required/>
+              <input type="password" id="pass" class="text-input" minlength="1" maxlength="20" required/>
               <label class="floating-text">Парола</label>
             </div>
           </div>
