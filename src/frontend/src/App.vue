@@ -25,7 +25,10 @@ export default {
   margin-top: 3px;
 }
 body{
-  background-image: url("./pic/background.jpg");
-  /*background: #e5e0e0;*/
+  background: url("./pic/background.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBar/>
     <h1>Бизнеси</h1>
     <div id="filters">
       <div id="search">
@@ -38,11 +39,12 @@ import Vue from 'vue';
 import VueAxios from "vue-axios";
 import axios from "axios";
 import Spinner from './Spinner.vue';
+import NavBar from "@/components/NavBar";
 Vue.use(VueAxios, axios)
 export default {
 
   name:"ItemList",
-  components: {Spinner},
+  components: {NavBar, Spinner},
   data()
   {
     return{list: undefined, itemsInRow: 3, publicPath: process.env.BASE_URL}
@@ -193,10 +195,13 @@ table {
   cursor: pointer;
 }
 #clear-filters{
-  margin-top:27px;
+  margin-top:17px;
   margin-left: 60px;
   cursor: pointer;
-  color: #818181;
+  background: #3e8e41;
+  border-radius: 10px;
+  color: #e5e0e0;
+  padding: 10px;
   border-bottom: 2px solid #e5e0e0;
   margin-bottom: 50px;
 }

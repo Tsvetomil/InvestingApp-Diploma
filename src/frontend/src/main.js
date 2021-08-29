@@ -13,6 +13,7 @@ import ResetPassword from './components/ResetPassword.vue'
 import Profile from './components/Profile.vue'
 import AdminPanel from './components/AdminPanel.vue'
 import VModal from 'vue-js-modal'
+import ItemList from "@/components/ItemList";
 
 Vue.use(VueRouter, VModal);
 
@@ -27,7 +28,8 @@ const routes = [
   {path: '/reset-password', component: ForgottenPassword},
   {path: '/password-reset', component: ResetPassword},
   {path: '/profile', component: Profile},
-  {path: '/admin-panel', component: AdminPanel}
+  {path: '/admin-panel', component: AdminPanel},
+  {path: '/offers', component: ItemList}
 ]
 const router = new VueRouter({
   routes,
