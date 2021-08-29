@@ -97,7 +97,7 @@ public class ProjectController implements IController{
     @PostMapping("/uploadImage")
     public Response uploadImage(@RequestParam("imageFile") MultipartFile imageFile){
         if(!imageFile.getContentType().toLowerCase().contains("image")){
-            return new Response(HttpStatus.BAD_REQUEST.value(), "Please upload a image");
+            return new Response(HttpStatus.BAD_REQUEST.value(), "Please upload an image");
         }
         String uniqueImgName = ImageUtils.getUniqueImgName(imageFile.getOriginalFilename());
         try {
