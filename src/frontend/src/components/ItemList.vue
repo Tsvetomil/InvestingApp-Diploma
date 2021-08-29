@@ -3,12 +3,10 @@
     <h1>Бизнеси</h1>
     <div id="filters">
       <div id="search">
-<!--        <h3 id="search-text">Търсене</h3>-->
         <div class="text-field">
           <input @keyup.enter="search" type="text" id="search-input" required/>
           <label for="search-input" class="floating-text" id="search-text">Търсене...</label>
         </div>
-<!--        <input @keyup.enter="search" type="text" id="search-input" placeholder="Търсене..."/>-->
         <img id="search-img" src="../pic/search.png" alt="Search" v-on:click="search">
       </div>
       <div class="dropdown">
