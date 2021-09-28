@@ -22,7 +22,9 @@ public class Project {
     private String lname;
     private String companyName;
     private String phone;
+    @Column(length=5000)
     private String reasonsToInvest;
+    @Column(length=5000)
     private String description;
     private Integer toRaise;
     private String website;
